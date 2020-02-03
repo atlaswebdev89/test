@@ -20,7 +20,6 @@ class Language {
     public function __construct($container) {
         $this->container = $container;
         $this->aliasLang = $container['lang'];
-
     }
     
     //Проверка наличия языка в системе по указаному alias языка. 
