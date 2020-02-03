@@ -7,7 +7,7 @@ define('USER', 'test');
 define('PASSWORD', 'coredallas89');
 
 //путь к папке с шаблонами для TWIG шаблонизатора
-define('PATH_TEMPLATES', 'public/templates');
+define('PATH_TEMPLATES', $_SERVER['DOCUMENT_ROOT'].'/public/templates');
 //Поддерживаемые языки (алиас)
 define ('LANG', ['en']);
 //Язык по умолчанию

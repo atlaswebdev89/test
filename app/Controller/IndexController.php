@@ -18,7 +18,6 @@ class IndexController extends DisplayController {
     protected $driver;
     protected $user;
 
-
     public function __construct($container) { 
             parent::__construct($container);
             $this->driver = $container['driver'];

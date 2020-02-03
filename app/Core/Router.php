@@ -1,10 +1,5 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 namespace Core;
 /**
  * Description of Router
@@ -12,59 +7,72 @@ namespace Core;
  * @author root
  */
 class Router {
-    static function start ($container) {      
-        // контроллер и действие по умолчанию
-		$controller_name = 'Main';
-		$action_name = 'index';
+    
+    protected $container;
+    protected $root;
+    protected $language;
+    protected $routes;
+    protected $namespace;
 
-		//Получить метод запроса
-        $method = $_SERVER['REQUEST_METHOD'];
-        //Получить uri запроса в виде массива
-		$routes = self::getUri($_SERVER['REQUEST_URI']);
+
+    public function __construct($container) {
+        $this->container = $container;
+        $this->root = $container['document_root'];
+        $this->language = $container['language'];
         //Получить массив соответствия запроса и контроллера с действием
-		$dataRoutes = self::getRoutes();
+        $this->routes = $this->getRoutes();
+        $this->namespace = '\\Controller\\';
+    }
 
-		//Делаем редирект, если выбран язык по умолчанию. В url запроса язык по умолчанию не будет отображаться
-		//if ($routes[0] == DEFAULT_LANG) {
-         //   $url = str_replace('/'.$routes[0], '', $url_path);
-         //           header("HTTP/1.1 301 Moved Permanently");
-         //           header('Location: http://'.$_SERVER['HTTP_HOST'].$url);
-        //}
-
+    public function start () {      
+                // контроллер по умолчанию
+		$controller_name = 'index';		
+		//Получить метод запроса
+                $method = $_SERVER['REQUEST_METHOD'];
+                //Получить uri запроса в виде массива
+		$routes = $this->getUri($_SERVER['REQUEST_URI']);
+ 
                 //Если  текущий язык есть в системе удаляем его из массива запроса для
                 //получения правильного контроллера и действия
-                if($container['language']->langValid($routes[0])){
-                    array_shift($routes);
-                };
-                //Если массив пуст значит запрос на главную страницу. Поэтому добаляем '/' для правильного получение контроллера и действия
-                if (empty($routes[0])) {
-                        $routes[0] = '/';
+                if($this->language->langValid($routes)){
+                    unset($routes);                    
+                };              
+                if (!empty($routes) && $routes == $controller_name){
+                    header("HTTP/1.1 301 Moved Permanently");
+                    header('Location: http://'.$_SERVER['HTTP_HOST']);                    
                 }
-        //
-        foreach ($dataRoutes[$method] as $uriPattern => $path) {
-            //if(preg_match("~$uriPattern~", $routes)) {
-            if ($uriPattern == $routes[0]) {
-                            $segments = explode('/', $path);
-                            $data = new \Controller\IndexController($container);
-                            $data->execute();
-                            print_r($segments);
+                //Если массив пуст значит запрос на главную страницу. 
+                if (empty($routes)) {
+                        $routes = $controller_name;
+                }
+                               
+                if (array_key_exists($routes, $this->routes[$method]))
+                {
+                    $segments = explode('/', $this->routes[$method][$routes]);
+                    $controllerName = array_shift($segments).'Controller';
+                    $controllerName = $this->namespace.ucfirst($controllerName);                           
+                    $actionName = (array_shift($segments));
+                    if (class_exists($controllerName))  {      
+                        $data = new $controllerName($this->container);
+                        $data->$actionName();  
                     }
-                }
-
-
+                    
+                    
+                }else {
+                    
+                    //Исключения для 404 ошибки
+                    echo "BAD";
+                }                  
     }
 
-    static protected function getUri($request){
+    protected function getUri($request){
             $url_path = parse_url($request, PHP_URL_PATH);
-            $routes = explode('/', trim($url_path, '/'));
-                //if (empty($routes[0])) {
-                  //  $routes[0] = '/';
-                //}
-        return $routes;
+            $routes = explode('/', trim($url_path, '/'));               
+        return $routes[0];
     }
 
-    static public function getRoutes () {
-            $data = require_once $_SERVER['DOCUMENT_ROOT'].'/config/routes.php';
+    protected function getRoutes () {
+            $data = require_once $this->root.'/config/routes.php';
         return $data;
     }
 }

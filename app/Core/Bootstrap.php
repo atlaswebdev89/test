@@ -13,7 +13,8 @@ class Bootstrap {
                             'user' =>       USER,
                             'password' =>   PASSWORD    
                 ];
-                
+                //Корень приложения
+                $container['document_root'] = $_SERVER['DOCUMENT_ROOT'];
                 //Поддерживаемые языки интерфейса сайта                
                 $container['lang'] = LANG;
                 
@@ -42,8 +43,7 @@ class Bootstrap {
                 $container ['view'] = function ($container) { 
                     $loader = new \Twig\Loader\FilesystemLoader(PATH_TEMPLATES);
                     return new \Twig\Environment($loader);
-                };       
-                
+                };                       
         return $container;       
     }
 }

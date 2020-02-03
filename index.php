@@ -17,7 +17,15 @@ require_once 'config/config.php';
 session_start(); //Start Session 
 //DI Dependency Injection 
 $container = \Core\Bootstrap::registerFabrica();
-\Core\Router::start($container);
+
+//Вызов класса посредника для проверки авторизирован ли пользователь
+///
+//
+//
+//Создание роутера и запуск
+$router = new \Core\Router ($container);
+$router->start();
+
 
 
 
