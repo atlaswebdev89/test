@@ -13,6 +13,7 @@ return array(
     'Model\\' => array($baseDir . '/app/Model'),
     'Library\\' => array($baseDir . '/library'),
     'Interfaces\\' => array($baseDir . '/app/Interfaces'),
+    'CustomException\\' => array($baseDir . '/app/Core/Exceptions'),
     'Core\\' => array($baseDir . '/app/Core'),
     'Controller\\' => array($baseDir . '/app/Controller'),
 );

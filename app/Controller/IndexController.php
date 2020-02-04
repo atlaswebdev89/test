@@ -31,19 +31,18 @@ class IndexController extends DisplayController {
     protected function display() {
             $this->title .= 'HOME';
             $this->user = $this->getData(1);
-            $this->mainbar = $this->mainBar();     
+             $this->mainbar = $this->mainBar();
             parent::display();
     }
-  
 
     public function getData ($id) {
         return $this->model->getData($id);                  
-}
+    }
 
     public function mainBar () {
                 $data = $this->view->render('main.php',
                             [
-                                'title' => 'HelloWorld!!!',
+                                'title' => $this->lang['title'],
                                 'user'  => $this->user,
                                 'lang' =>  $this->lang
                             ]);

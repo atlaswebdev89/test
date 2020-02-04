@@ -2,7 +2,8 @@
         return
                     ['GET' =>
                                 [
-                                    'index' => 'index/execute'                                    
+                                    'index' => 'index/execute',
+                                    'admin' => 'index/execute'
                                 ],
                      'POST' =>
                                 [

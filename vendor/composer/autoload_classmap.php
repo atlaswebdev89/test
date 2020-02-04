@@ -7,10 +7,16 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'Controller\\DisplayController' => $baseDir . '/app/Controller/DisplayController.php',
+    'Controller\\ErrorController' => $baseDir . '/app/Controller/ErrorController.php',
     'Controller\\IndexController' => $baseDir . '/app/Controller/IndexController.php',
     'Controller\\MainController' => $baseDir . '/app/Controller/MainController.php',
     'Core\\Bootstrap' => $baseDir . '/app/Core/Bootstrap.php',
+    'Core\\ConnectDB' => $baseDir . '/app/Core/ConnectDB.php',
+    'Core\\DriverDB' => $baseDir . '/app/Core/DriverDB.php',
     'Core\\Router' => $baseDir . '/app/Core/Router.php',
+    'CustomException\\NotFoundException' => $baseDir . '/app/Core/Exceptions/NotFoundException.php',
+    'Library\\Language' => $baseDir . '/library/Language.php',
+    'Library\\Session' => $baseDir . '/library/Session.php',
     'Model\\Model' => $baseDir . '/app/Model/Model.php',
     'Pimple\\Container' => $vendorDir . '/pimple/pimple/src/Pimple/Container.php',
     'Pimple\\Exception\\ExpectedInvokableException' => $vendorDir . '/pimple/pimple/src/Pimple/Exception/ExpectedInvokableException.php',

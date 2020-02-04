@@ -1,11 +1,7 @@
 <?php
 
 namespace Core;
-/**
- * Description of Router
- *
- * @author root
- */
+
 class Router {
     
     protected $container;
@@ -13,7 +9,8 @@ class Router {
     protected $language;
     protected $routes;
     protected $namespace;
-
+    protected $data;
+    protected $lang_alias;
 
     public function __construct($container) {
         $this->container = $container;
@@ -25,54 +22,87 @@ class Router {
     }
 
     public function start () {      
-                // контроллер по умолчанию
+        // контроллер по умолчанию
 		$controller_name = 'index';		
 		//Получить метод запроса
-                $method = $_SERVER['REQUEST_METHOD'];
-                //Получить uri запроса в виде массива
+        $method = $_SERVER['REQUEST_METHOD'];
+        //Получить uri запроса в виде массива
 		$routes = $this->getUri($_SERVER['REQUEST_URI']);
  
                 //Если  текущий язык есть в системе удаляем его из массива запроса для
                 //получения правильного контроллера и действия
-                if($this->language->langValid($routes)){
-                    unset($routes);                    
-                };              
-                if (!empty($routes) && $routes == $controller_name){
-                    header("HTTP/1.1 301 Moved Permanently");
-                    header('Location: http://'.$_SERVER['HTTP_HOST']);                    
+                if($this->language->langValid($routes[0])){
+                    $this->lang_alias = array_shift($routes);
+                };
+        try {
+
+
+                            if (count($routes) <= 1) {
+                               if (!empty($routes[0]) && $routes[0] == $controller_name){
+                                    if (!empty($this->lang_alias))
+                                            {
+                                                    $routes[0] = $this->lang_alias;
+                                                    return $this->redirect(implode('/', $routes));
+                                    }else   {
+                                        array_shift($routes);
+                                        $this->redirect(implode('/', $routes));
+                                    }
+                                }
+                                //Если массив пуст значит запрос на главную страницу.
+                                if (empty($routes[0]))
+                                               {
+                                                   $routes[0] = $controller_name;
+                                               }
+                            }else {
+                                throw new \CustomException\NotFoundException();
+                            }
+                                    //Получение контроллера по полученному uri
+                                    if (array_key_exists($routes[0], $this->routes[$method])) {
+                                        $segments = explode('/', $this->routes[$method][$routes[0]]);
+                                        $controllerName = array_shift($segments) . 'Controller';
+                                        $controllerName = $this->namespace . ucfirst($controllerName);
+                                        $actionName = (array_shift($segments));
+                                        if (class_exists($controllerName)) {
+                                            //Создает объект контроллера
+                                            $data = new $controllerName($this->container);
+                                            if (method_exists($controllerName, $actionName)) {
+                                                //Метод объекта
+                                                $data->$actionName();
+                                            } else
+                                                throw new \Exception('NotAction');
+                                        } else
+                                            throw new \Exception('NotController');
+                                    } else {
+                                        throw new \CustomException\NotFoundException();
+                                    }
+
+
+                }catch (\CustomException\NotFoundException $e) {
+                    $controller = new \Controller\ErrorController ($this->container);
+                    $controller->NotFound();
                 }
-                //Если массив пуст значит запрос на главную страницу. 
-                if (empty($routes)) {
-                        $routes = $controller_name;
+                catch (\PDOException $e) {
+                    echo $e->getMessage();
                 }
-                               
-                if (array_key_exists($routes, $this->routes[$method]))
-                {
-                    $segments = explode('/', $this->routes[$method][$routes]);
-                    $controllerName = array_shift($segments).'Controller';
-                    $controllerName = $this->namespace.ucfirst($controllerName);                           
-                    $actionName = (array_shift($segments));
-                    if (class_exists($controllerName))  {      
-                        $data = new $controllerName($this->container);
-                        $data->$actionName();  
-                    }
-                    
-                    
-                }else {
-                    
-                    //Исключения для 404 ошибки
-                    echo "BAD";
-                }                  
+                catch (\Exception $e) {
+                    echo $e->getMessage();
+                }
     }
 
     protected function getUri($request){
             $url_path = parse_url($request, PHP_URL_PATH);
             $routes = explode('/', trim($url_path, '/'));               
-        return $routes[0];
+        return $routes;
     }
 
     protected function getRoutes () {
             $data = require_once $this->root.'/config/routes.php';
         return $data;
     }
+
+    protected function redirect ($uri = null) {
+            header("HTTP/1.1 301 Moved Permanently");
+            header('Location: http://'.$_SERVER['HTTP_HOST'].'/'.$uri);
+    }
 }
+

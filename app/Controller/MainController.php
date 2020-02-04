@@ -17,7 +17,6 @@ class MainController {
     public function __construct($container) { 
             $this->container = $container;
             $this->model = $container['model'];
-            $this->view=$container['view']; 
-           
+            $this->view=$container['view'];
     }
 }

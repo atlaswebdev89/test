@@ -39,6 +39,7 @@ class ComposerStaticInite746b479981fb2f8c7fa02d317fc2882
         ),
         'C' => 
         array (
+            'CustomException\\' => 16,
             'Core\\' => 5,
             'Controller\\' => 11,
         ),
@@ -73,6 +74,10 @@ class ComposerStaticInite746b479981fb2f8c7fa02d317fc2882
         array (
             0 => __DIR__ . '/../..' . '/app/Interfaces',
         ),
+        'CustomException\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/app/Core/Exceptions',
+        ),
         'Core\\' => 
         array (
             0 => __DIR__ . '/../..' . '/app/Core',
@@ -95,10 +100,16 @@ class ComposerStaticInite746b479981fb2f8c7fa02d317fc2882
 
     public static $classMap = array (
         'Controller\\DisplayController' => __DIR__ . '/../..' . '/app/Controller/DisplayController.php',
+        'Controller\\ErrorController' => __DIR__ . '/../..' . '/app/Controller/ErrorController.php',
         'Controller\\IndexController' => __DIR__ . '/../..' . '/app/Controller/IndexController.php',
         'Controller\\MainController' => __DIR__ . '/../..' . '/app/Controller/MainController.php',
         'Core\\Bootstrap' => __DIR__ . '/../..' . '/app/Core/Bootstrap.php',
+        'Core\\ConnectDB' => __DIR__ . '/../..' . '/app/Core/ConnectDB.php',
+        'Core\\DriverDB' => __DIR__ . '/../..' . '/app/Core/DriverDB.php',
         'Core\\Router' => __DIR__ . '/../..' . '/app/Core/Router.php',
+        'CustomException\\NotFoundException' => __DIR__ . '/../..' . '/app/Core/Exceptions/NotFoundException.php',
+        'Library\\Language' => __DIR__ . '/../..' . '/library/Language.php',
+        'Library\\Session' => __DIR__ . '/../..' . '/library/Session.php',
         'Model\\Model' => __DIR__ . '/../..' . '/app/Model/Model.php',
         'Pimple\\Container' => __DIR__ . '/..' . '/pimple/pimple/src/Pimple/Container.php',
         'Pimple\\Exception\\ExpectedInvokableException' => __DIR__ . '/..' . '/pimple/pimple/src/Pimple/Exception/ExpectedInvokableException.php',

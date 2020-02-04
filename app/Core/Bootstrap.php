@@ -17,7 +17,7 @@ class Bootstrap {
                 $container['document_root'] = $_SERVER['DOCUMENT_ROOT'];
                 //Поддерживаемые языки интерфейса сайта                
                 $container['lang'] = LANG;
-                
+
                 //Класс проверки url языка
                 $container['language'] = function ($container){
                             return new \Library\Language($container);
@@ -44,6 +44,6 @@ class Bootstrap {
                     $loader = new \Twig\Loader\FilesystemLoader(PATH_TEMPLATES);
                     return new \Twig\Environment($loader);
                 };                       
-        return $container;       
+        return $container;
     }
 }
