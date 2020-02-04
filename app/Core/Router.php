@@ -104,5 +104,13 @@ class Router {
             header("HTTP/1.1 301 Moved Permanently");
             header('Location: http://'.$_SERVER['HTTP_HOST'].'/'.$uri);
     }
+
+    protected function getController ($routes) {
+
+    }
+
+    protected function validUri () {
+
+    }
 }
 
