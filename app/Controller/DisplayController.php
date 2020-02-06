@@ -24,7 +24,6 @@ class DisplayController extends MainController {
             parent::__construct($container);  
             $this->title = 'WifiCisco | ';
             $this->lang = $this->getLang();
-           
     }
     
     public function getLang () {

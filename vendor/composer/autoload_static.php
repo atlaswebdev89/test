@@ -28,6 +28,7 @@ class ComposerStaticInite746b479981fb2f8c7fa02d317fc2882
         'M' => 
         array (
             'Model\\' => 6,
+            'Middleware\\' => 11,
         ),
         'L' => 
         array (
@@ -65,6 +66,10 @@ class ComposerStaticInite746b479981fb2f8c7fa02d317fc2882
         'Model\\' => 
         array (
             0 => __DIR__ . '/../..' . '/app/Model',
+        ),
+        'Middleware\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/app/Core/Middleware',
         ),
         'Library\\' => 
         array (
@@ -107,9 +112,11 @@ class ComposerStaticInite746b479981fb2f8c7fa02d317fc2882
         'Core\\ConnectDB' => __DIR__ . '/../..' . '/app/Core/ConnectDB.php',
         'Core\\DriverDB' => __DIR__ . '/../..' . '/app/Core/DriverDB.php',
         'Core\\Router' => __DIR__ . '/../..' . '/app/Core/Router.php',
+        'Core\\Router2' => __DIR__ . '/../..' . '/app/Core/Router2.php',
         'CustomException\\NotFoundException' => __DIR__ . '/../..' . '/app/Core/Exceptions/NotFoundException.php',
         'Library\\Language' => __DIR__ . '/../..' . '/library/Language.php',
         'Library\\Session' => __DIR__ . '/../..' . '/library/Session.php',
+        'Middleware\\Auth' => __DIR__ . '/../..' . '/app/Core/Middleware/Auth.php',
         'Model\\Model' => __DIR__ . '/../..' . '/app/Model/Model.php',
         'Pimple\\Container' => __DIR__ . '/..' . '/pimple/pimple/src/Pimple/Container.php',
         'Pimple\\Exception\\ExpectedInvokableException' => __DIR__ . '/..' . '/pimple/pimple/src/Pimple/Exception/ExpectedInvokableException.php',

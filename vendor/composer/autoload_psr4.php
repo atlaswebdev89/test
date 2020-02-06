@@ -11,6 +11,7 @@ return array(
     'Symfony\\Polyfill\\Ctype\\' => array($vendorDir . '/symfony/polyfill-ctype'),
     'Psr\\Container\\' => array($vendorDir . '/psr/container/src'),
     'Model\\' => array($baseDir . '/app/Model'),
+    'Middleware\\' => array($baseDir . '/app/Core/Middleware'),
     'Library\\' => array($baseDir . '/library'),
     'Interfaces\\' => array($baseDir . '/app/Interfaces'),
     'CustomException\\' => array($baseDir . '/app/Core/Exceptions'),

@@ -19,11 +19,10 @@ session_start(); //Start Session
 $container = \Core\Bootstrap::registerFabrica();
 
 //Вызов класса посредника для проверки авторизирован ли пользователь
-///
-//
-//
+//$container['auth']->_("GOOD Middleware");
+
 //Создание роутера и запуск
-$router = new \Core\Router ($container);
+$router = new \Core\Router2 ($container);
 $router->start();
 
 

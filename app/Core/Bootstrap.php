@@ -22,9 +22,17 @@ class Bootstrap {
                 $container['language'] = function ($container){
                             return new \Library\Language($container);
                 };
-                //класс для cессий           
+                //Класс для работы cессий
                 $container['session'] = function ($container){
                             return new \Library\Session($container);
+                };
+                //Класс  для проверки авторизации пользователя
+                $container['auth'] = function ($container){
+                            return new \Middleware\Auth($container);
+                };
+                //класс для работы с пользователями
+                $container['auth'] = function ($container) {
+                            return new \Library\Users($container);
                 };
                 //Register dataBase connection (PDO) Singleton
                 $container['pdo'] = function ($container) {

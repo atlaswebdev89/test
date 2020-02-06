@@ -17,7 +17,8 @@
                     "Model\\": "app/Model",
                     "Controller\\": "app/Controller",
                     "Interfaces\\": "app/Interfaces",
-                    "CustomException\\":  "app/Core/Exceptions"
+                    "CustomException\\":  "app/Core/Exceptions",
+                    "Middleware\\": "app/Core/Middleware"
                 	}
        }
 }

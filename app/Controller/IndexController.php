@@ -21,17 +21,20 @@ class IndexController extends DisplayController {
     public function __construct($container) { 
             parent::__construct($container);
             $this->driver = $container['driver'];
+
            
     }
     
     public function execute () {
+            $this->auth->isLogin();
         return $this->display();
     }
  
     protected function display() {
+
             $this->title .= 'HOME';
             $this->user = $this->getData(1);
-             $this->mainbar = $this->mainBar();
+            $this->mainbar = $this->mainBar();
             parent::display();
     }
 
