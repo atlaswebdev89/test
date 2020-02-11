@@ -42,7 +42,6 @@ class Router2
         //проверка uri на пустоту
         $routes = $this->uriEmpty($routes);
 
-
         try {
             foreach ($this->routes[$method] as $uriPattern => $path) {
                 if (preg_match("~^$uriPattern$~", $routes)) {

@@ -14,24 +14,19 @@ namespace Controller;
  * @author root
  */
 class IndexController extends DisplayController {
-    
     protected $driver;
     protected $user;
 
     public function __construct($container) { 
             parent::__construct($container);
-            $this->driver = $container['driver'];
-
-           
     }
     
     public function execute () {
-            $this->auth->isLogin();
+            $this->middle->isUserLogin();
         return $this->display();
     }
  
     protected function display() {
-
             $this->title .= 'HOME';
             $this->user = $this->getData(1);
             $this->mainbar = $this->mainBar();

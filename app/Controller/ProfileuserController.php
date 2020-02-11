@@ -7,7 +7,8 @@ namespace Controller;
 class ProfileuserController extends DisplayController
 {
         public function execute () {
-            return $this->display();
+            $this->middle->isUserLogin();
+                return $this->display();
             parent::display();
         }
 
