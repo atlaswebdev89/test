@@ -8,8 +8,8 @@ class ErrorController extends DisplayController
         parent::__construct($container);
     }
     public function NotFound () {
-        header("HTTP/1.1 404 Not Found");
-        $this->mainbar = $this->mainBar();
+            header("HTTP/1.1 404 Not Found");
+            $this->mainbar = $this->mainBar();
         parent::display();
     }
 

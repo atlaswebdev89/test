@@ -24,6 +24,8 @@ class DisplayController extends MainController {
             parent::__construct($container);  
             $this->title = 'WifiCisco | ';
             $this->lang = $this->getLang();
+            $_SESSION['auth'] = TRUE;         
+            $_SESSION['user_id'] = 1;
     }
     
     public function getLang () {
@@ -32,9 +34,9 @@ class DisplayController extends MainController {
     }
 
     protected function display() {       
-            echo $this->view->render('data.php', [   
+            echo $this->view->render('index.php', [   
                                                             'mainbar' => $this->mainbar,
-                                                            'text' => 'Main Template', 
+                                                            'title' => $this->lang['title'], 
                                                             'langTempl' => $this->lang
                                                         ]);   
         } 

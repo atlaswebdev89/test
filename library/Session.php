@@ -25,4 +25,17 @@ class Session {
             return $this->container['language']->langValid($uriLang);
         }
     }
+    
+    public function CreateSessionData (array $data) {           
+                $_SESSION['hash']               =   $data['hash'];
+                $_SESSION['name']               =   $data['name'];
+                $_SESSION['secondname']         =   $data['second'];
+                $_SESSION['user_id']            =   $data['id'];                                             
+                $_SESSION['auth']               =   TRUE;              
+    }
+    
+    public function deleteSession (){
+        unset($_SESSION['auth']);
+        session_destroy();
+    }
 }

@@ -6,6 +6,9 @@ define('DBNAME', 'test');
 define('USER', 'test');
 define('PASSWORD', 'coredallas89');
 
+//Время действия куки для авторизации при отсутствии сессии
+define('TIMEOUT_USER_HASH', 50000);
+
 //путь к папке с шаблонами для TWIG шаблонизатора
 define('PATH_TEMPLATES', $_SERVER['DOCUMENT_ROOT'].'/public/templates');
 //Поддерживаемые языки (алиас)

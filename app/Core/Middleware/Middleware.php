@@ -6,8 +6,9 @@ namespace Middleware;
 
 class Middleware
 {
-        public $auth;
+        protected $auth;
         protected $redirect  = 'login';
+        
         public function __construct($container)
         {
             $this->auth = $container['auth'];

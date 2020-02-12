@@ -22,14 +22,15 @@ class IndexController extends DisplayController {
     }
     
     public function execute () {
-            $this->middle->isUserLogin();
+            //Запускам класс постредник для проверки авторизован ли пользователь
+            $this->middle->isUserLogin();            
         return $this->display();
     }
  
     protected function display() {
-            $this->title .= 'HOME';
-            $this->user = $this->getData(1);
-            $this->mainbar = $this->mainBar();
+                $this->title .= 'HOME';
+                $this->user = $this->getData(1);
+                $this->mainbar = $this->mainBar();
             parent::display();
     }
 
@@ -38,7 +39,7 @@ class IndexController extends DisplayController {
     }
 
     public function mainBar () {
-                $data = $this->view->render('main.php',
+                $data = $this->view->render('login.php',
                             [
                                 'title' => $this->lang['title'],
                                 'user'  => $this->user,
