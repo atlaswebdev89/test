@@ -28,7 +28,6 @@ class IndexController extends DisplayController {
     }
  
     protected function display() {
-                $this->title .= 'HOME';
                 $this->user = $this->getData(1);
                 $this->mainbar = $this->mainBar();
             parent::display();
@@ -39,7 +38,7 @@ class IndexController extends DisplayController {
     }
 
     public function mainBar () {
-                $data = $this->view->render('login.php',
+                $data = $this->view->render('profile.php',
                             [
                                 'title' => $this->lang['title'],
                                 'user'  => $this->user,

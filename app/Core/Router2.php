@@ -36,6 +36,10 @@ class Router2
                 {
                     $this->lang_alias = array_shift($routesArray);
                     $routes = implode('/', $routesArray);
+                    //Если указан язык по умолчанию делаем редирект
+                        if ($this->lang_alias == DEFAULT_LANG) {
+                            $this->redirect($routes);
+                        }
                 }
         //Проверка  наличие дублей (301 редирект)
         $this->doubleUri($routes);

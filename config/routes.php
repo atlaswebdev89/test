@@ -2,13 +2,10 @@
         return
                     ['GET' =>
                                 [
-                                    'index'             => 'index/execute',
+                                    'index'             => 'profileuser/execute',
                                     'index/([aA-zZ]+)'  => 'index/execute',
-                                    'admin'             => 'index/execute',
-                                    'admin/[aA-zZ]+'    => 'index/execute',
-                                    'register'          => 'login/register',
-                                    'login'             => 'login/login',
-                                    'profile'           => 'profileuser/execute'
+                                    'register'          => 'register/register',
+                                    'login'             => 'login/login'
                                 ],
                      'POST' =>
                                 [

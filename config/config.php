@@ -12,6 +12,6 @@ define('TIMEOUT_USER_HASH', 50000);
 //путь к папке с шаблонами для TWIG шаблонизатора
 define('PATH_TEMPLATES', $_SERVER['DOCUMENT_ROOT'].'/public/templates');
 //Поддерживаемые языки (алиас)
-define ('LANG', ['en']);
+define ('LANG', ['en', 'ru']);
 //Язык по умолчанию
 define ('DEFAULT_LANG', 'ru');

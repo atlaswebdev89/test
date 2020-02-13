@@ -43,4 +43,12 @@ class Model {
             $result =  $this->driver->query($sql, $type, $data_array); 
         return $result[0];   
     }
+
+    //Функция получения используемых языков сайта
+    public function getLang () {
+            $type = 'arraydata';
+            $sql = "select * from `lang`";
+            $result =  $this->driver->query($sql, $type);
+        return $result;
+    }
 }

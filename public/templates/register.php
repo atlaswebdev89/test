@@ -14,7 +14,11 @@
         <input type="password" name="password_confirm" placeholder="Подтвердите пароль">
         <button type="submit">Войти</button>
         <p>
-            У вас уже есть аккаунт? - <a href="/">авторизируйтесь</a>!
+            {% if lang_prefix %}
+                У вас уже есть аккаунт? - <a href="/{{lang_prefix}}/login">авторизируйтесь</a>!
+            {% else %}
+                У вас уже есть аккаунт? - <a href="/login">авторизируйтесь</a>!
+            {% endif %}
         </p>
         <?php
             if ($_SESSION['message']) {
