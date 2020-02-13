@@ -11,9 +11,9 @@
             <div id="navbar" class="navbar-left">
                     {% for data in langData %}
                         {% if data.prefix %}
-                            <a href="/{{data.prefix}}/login"><img src="{{data.icon}}"></a>
+                            <a href="/{{data.prefix}}/{{uri}}"><img src="{{data.icon}}"></a>
                         {% else %}
-                            <a href="/login"><img src="{{data.icon}}"></a>
+                            <a href="/{{uri}}"><img src="{{data.icon}}"></a>
                         {% endif %}
                     {% endfor %}
                 <span><strong>{{langTempl.language}}</strong></span>
