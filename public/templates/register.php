@@ -1,30 +1,25 @@
    <!-- Форма регистрации -->
+   <h1 class="dark text-center">{{lang.title_page_register}}</h1>
     <form action="#" method="post" enctype="multipart/form-data">
-        <label>ФИО</label>
-        <input type="text" name="full_name" placeholder="Введите свое полное имя">
-        <label>Логин</label>
-        <input type="text" name="login" placeholder="Введите свой логин">
-        <label>Почта</label>
-        <input type="email" name="email" placeholder="Введите адрес своей почты">
-        <label>Изображение профиля</label>
-        <input type="file" name="avatar">
-        <label>Пароль</label>
-        <input type="password" name="password" placeholder="Введите пароль">
-        <label>Подтверждение пароля</label>
-        <input type="password" name="password_confirm" placeholder="Подтвердите пароль">
-        <button type="submit">Войти</button>
+        <label>{{lang.labelname}}</label>
+        <input type="text" name="name" placeholder="{{lang.placeholderName}}">
+        <label>{{lang.labellogin}}</label>
+        <input type="text" name="login" placeholder="{{lang.placeholderLogin}}">
+        <label>{{lang.email}}</label>
+        <input type="email" name="email" placeholder="{{lang.placeholderEmail}}">
+        <label>{{lang.profileImage}}</label>
+            <input type="file" name="avatar" >
+        <label>{{lang.labelpassword}}</label>
+        <input type="password" name="password" placeholder="{{lang.placeholderPass}}">
+        <label>{{lang.labelConfirmPass}}</label>
+        <input type="password" name="password_confirm" placeholder="{{lang.placeholderConfirmPass}}">
+        <button type="submit">{{lang.submitRegister}}</button>
         <p>
             {% if lang_prefix %}
-                У вас уже есть аккаунт? - <a href="/{{lang_prefix}}/login">авторизируйтесь</a>!
+                {{lang.questionAccauntRegister}} - <a href="/{{lang_prefix}}/login">{{lang.loginSite}}</a>
             {% else %}
-                У вас уже есть аккаунт? - <a href="/login">авторизируйтесь</a>!
+                {{lang.questionAccauntRegister}} - <a href="/login">{{lang.loginSite}}</a>
             {% endif %}
         </p>
-        <?php
-            if ($_SESSION['message']) {
-                echo '<p class="msg"> ' . $_SESSION['message'] . ' </p>';
-            }
-            unset($_SESSION['message']);
-        ?>
     </form>
 

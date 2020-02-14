@@ -1,9 +1,2 @@
-
-    {% for data in user %}
-
-    <li>{{data.name}}</li>
-    <li>{{data.second}}</li>
-    <li>{{data.role}}</li>
-
-    {% endfor %}
-</ul>
+<p>PROFILE_USER</p>
+<p>IMAGE_USERS</p>

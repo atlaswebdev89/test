@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="PublishConfigData">
+    <serverData>
+      <paths name="123">
+        <serverdata>
+          <mappings>
+            <mapping local="$PROJECT_DIR$/../cisco" web="/" />
+            <mapping local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="223">
+        <serverdata>
+          <mappings>
+            <mapping local="$PROJECT_DIR$/../cisco" web="/" />
+            <mapping local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="byfly">
+        <serverdata>
+          <mappings>
+            <mapping local="$PROJECT_DIR$/../cisco" web="/" />
+            <mapping local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="helper">
+        <serverdata>
+          <mappings>
+            <mapping local="$PROJECT_DIR$/../cisco" web="/" />
+            <mapping local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+    </serverData>
+  </component>
+</project>

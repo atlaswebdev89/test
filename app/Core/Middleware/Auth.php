@@ -49,12 +49,4 @@ class Auth
             return FALSE;
         }
     }
-    //Функция проверки ip адреса пользователя и запись значения в сессию если её там нет или не соответствует текущему значению
-    protected function IpUserValid ($ip) {
-            $ipAddress = $_SERVER['REMOTE_ADDR'];
-            if ($ipAddress == $ip) {                          
-                return TRUE;
-            }else 
-                return FALSE;
-        }
 }

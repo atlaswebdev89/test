@@ -48,12 +48,12 @@ class DisplayController extends MainController {
     protected function getUri () {  
         $data = trim($_SERVER['REQUEST_URI'], '/');       
         $data = explode('/', $data);
-        if (in_array($data[0], LANG)) {
-            array_shift($data);
-            return implode('/', $data);
-        }else {
-            return implode('/', $data);
-        }   
+            if (in_array($data[0], LANG)) {
+                array_shift($data);
+                return implode('/', $data);
+            }else {
+                return implode('/', $data);
+            }
     }
 
     // Вывод на экран

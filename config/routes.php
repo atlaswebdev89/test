@@ -2,7 +2,7 @@
         return
                     ['GET' =>
                                 [
-                                    'index'             => 'profileuser/execute',
+                                    'index'             => 'profileuser/profile',
                                     'index/([aA-zZ]+)'  => 'index/execute',
                                     'register'          => 'register/register',
                                     'login'             => 'login/login'
