@@ -33,7 +33,11 @@ return
         'submitRegister' => 'Зарегистрироваться',
         'loginSite'=>'Авторизоваться',
         'InputFile' => 'Выберите файл...',
-        'InputFileMessage' => 'Файл не выбран'
+        'InputFileMessage' => 'Файл не выбран',
+        
+        //Страница ошибки 404
+        'page_not_found' => 'Cтраница не найдена',
+        'linkHome' =>'Перейти на главную страницу',
 
 
 

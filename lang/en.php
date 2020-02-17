@@ -33,7 +33,12 @@ return
         'submitRegister' => 'CreateAccont',
         'loginSite'=>'LogIn',
         'InputFile' => 'Choose a file...',
-        'InputFileMessage' => 'No file selected'
+        'InputFileMessage' => 'No file selected',
+        
+        
+        //Страница ошибки 404
+        'page_not_found' => 'Page not found',
+        'linkHome' =>'Go to the main page',
         
 
 

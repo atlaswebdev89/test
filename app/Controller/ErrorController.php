@@ -10,14 +10,12 @@ class ErrorController extends DisplayController
     public function NotFound () {
             header("HTTP/1.1 404 Not Found");
             $this->mainbar = $this->mainBar();
-        parent::display();
     }
 
     public function mainBar () {
-        return  $this->view->render('404.php',
+        echo  $this->view->render('404.php',
             [
-                'lang' =>  $this->lang,
-                'notFound' => $this->lang['notFound']
+                'lang' =>  $this->lang                
             ]);
     }
 }
