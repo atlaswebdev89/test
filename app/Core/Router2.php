@@ -32,14 +32,13 @@ class Router2
         //Если  текущий язык есть в системе удаляем его из массива запроса для
         //получения правильного контроллера и действия
         $routesArray = explode('/', $routes);
+        
         if($this->language->langValid($routesArray[0]))
                 {
-                    $this->lang_alias = array_shift($routesArray);
-                    $routes = implode('/', $routesArray);
-                    //Если указан язык по умолчанию делаем редирект
-                        if ($this->lang_alias == DEFAULT_LANG) {
-                            $this->redirect($routes);
-                        }
+                    if ($routesArray[0] != DEFAULT_LANG) {
+                        $this->lang_alias = array_shift($routesArray);
+                        $routes = implode('/', $routesArray);
+                    }                  
                 }
         //Проверка  наличие дублей (301 редирект)
         $this->doubleUri($routes);
@@ -111,12 +110,12 @@ class Router2
                     ];
     }
 
-    protected function doubleUri ($routes) {
-        //Если в запросе указан контроллер по умолчанию делаем редирект для главную для борьбы с дублями страниц
-        if ($routes == $this->controllerDefaul ) {
+    protected function doubleUri ($routes) {       
+        //Если в запросе указан контроллер по умолчанию делаем редирект на главную для борьбы с дублями страниц
+        if (preg_match("~$this->controllerDefaul$~", $routes)) {            
             if (!empty($this->lang_alias)){
                 return $this->redirect($this->lang_alias);
-            }else {
+            }else {  
                 return $this->redirect();
             }
         }

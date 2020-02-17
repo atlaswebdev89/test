@@ -1,14 +1,13 @@
 <?php
 
 return
-    [ 
-        'title' => 'Привет мир',
+    [
         'description' => 'Описание действия',
-        'notFound' => 'Страница не найдена',
-        'title_page_login' => 'Авторизация',
-        'language' => 'Язык',
+        'notFound' => 'Страница не найдена',       
+        'language' => 'Русский',
 
         //Форма авторизации
+        'title_page_login' => 'Авторизация',
         'labelLogin' => 'Логин',
         'placeholderLogin' =>'Введите свой логин',
         'labelPass' => 'Пароль',
@@ -32,7 +31,9 @@ return
         'placeholderConfirmPass'=>'Подтвердите пароль',
         'questionAccauntRegister' => 'У вас уже есть аккаунт?',
         'submitRegister' => 'Зарегистрироваться',
-        'loginSite'=>'Авторизоваться'
+        'loginSite'=>'Авторизоваться',
+        'InputFile' => 'Выберите файл...',
+        'InputFileMessage' => 'Файл не выбран'
 
 
 

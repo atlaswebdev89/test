@@ -14,9 +14,7 @@ class Bootstrap {
                             'password' =>   PASSWORD    
                 ];
                 //Корень приложения
-                $container['document_root'] = $_SERVER['DOCUMENT_ROOT'];
-                //Поддерживаемые языки интерфейса сайта                
-                $container['lang'] = LANG;
+                $container['document_root'] = $_SERVER['DOCUMENT_ROOT'];              
 
                 //Класс проверки url языка
                 $container['language'] = function ($container){

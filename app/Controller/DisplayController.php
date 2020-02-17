@@ -9,14 +9,16 @@ class DisplayController extends MainController {
     protected $lang;
     protected $lang_prefix;
     protected $langList;
-    protected $uri;
+    protected $uri; 
+    protected $title;
+
 
     public function __construct($container) { 
             parent::__construct($container);
             $this->lang = $this->getLang();
             $this->lang_prefix = $this->getLangPrefixUrl($_SESSION['lang']);
-            $this->langList = $this->getLangUrl();
             $this->uri = $this->getUri();
+            $this->langList = $this->getLangUrl();            
     }
 
     //Получение префикса языка для URL. Если используется язык по умолчанию, в uri его не будет. Язык по умолчанию
@@ -29,12 +31,15 @@ class DisplayController extends MainController {
 
     //Получение из базы список локаций (используемых языком) для вывода на каждой странице для возможности переключения.
     protected function getLangUrl () {
-            $data = $this->model->getLang();
-                    foreach ($data as &$item) {
+            $data = $this->model->getLang();                                          
+            foreach ($data as &$item) {                       
                         if ($item['alias'] == DEFAULT_LANG) {
                                 unset($item['prefix']);
+                                $item['prefix'] = "/".$this->uri;                           
+                        }else {
+                            $item['prefix'] = "/".$item['prefix']."/".$this->uri;  
                         }
-                    }
+                    }                   
             return $data;
     }
 
@@ -55,17 +60,33 @@ class DisplayController extends MainController {
                 return implode('/', $data);
             }
     }
+    
+    //Формирования правильных ссылок на страницах шаблона 
+    public function geturiPageCurrent (array $uri) {
+        if ($this->lang_prefix) 
+            {            
+                foreach ($uri as &$items) 
+                        {                  
+                            $items = "/".$this->lang_prefix."/".$items;                            
+                        } 
+                        return $uri;               
+            }else {
+                return $uri;
+            }
+        }
 
     // Вывод на экран
     protected function display() {       
             echo $this->view->render('index.php', [   
                                                             'mainbar' => $this->mainbar,
                                                             'langTempl' => $this->lang,
-                                                            'title' => $this->lang['title'],
+                                                            'title' => $this->title,    
                                                             'langData' =>$this->langList,
-                                                            'uri' => $this->uri
+                                                            'uri' => $this->uri,
+                                                            'usedLang' => $_SESSION['lang']
                                                         ]);   
         }
+        
 
     protected function JsonResponse () {
             

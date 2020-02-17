@@ -23,7 +23,7 @@ class IndexController extends DisplayController {
     
     public function execute () {
             //Запускам класс постредник для проверки авторизован ли пользователь
-            $this->middle->isUserLogin();            
+            //$this->middle->isUserLogin();            
         return $this->display();
     }
  

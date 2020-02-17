@@ -1,14 +1,13 @@
 <?php
 
 return  
-    [
-        'title' => 'Hello World',
+    [      
         'description' => 'Data Print',
-        'notFound' => 'NotFound',
-        'title_page_login' => 'Sing In',
-        'language' => 'Language',
+        'notFound' => 'NotFound',      
+        'language' => 'English',
 
         //Форма авторизации
+        'title_page_login' => 'Sing in',
         'labelLogin' => 'Login',
         'placeholderLogin' =>'Enter your username',
         'labelPass' => 'Password',
@@ -32,7 +31,10 @@ return
         'placeholderConfirmPass'=>'Confirm your password',
         'questionAccauntRegister' => 'You already have an account?',
         'submitRegister' => 'CreateAccont',
-        'loginSite'=>'LogIn'
+        'loginSite'=>'LogIn',
+        'InputFile' => 'Choose a file...',
+        'InputFileMessage' => 'No file selected'
+        
 
 
 

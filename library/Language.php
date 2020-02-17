@@ -19,12 +19,11 @@ class Language {
     
     public function __construct($container) {
         $this->container = $container;
-        $this->aliasLang = $container['lang'];
     }
     
     //Проверка наличия языка в системе по указаному alias языка. 
     public function langValid ($urls) {       
-        if (in_array($urls, $this->aliasLang)){
+        if (in_array($urls, LANG)){
                 $_SESSION['lang'] = $urls;
             return TRUE;
         }else 

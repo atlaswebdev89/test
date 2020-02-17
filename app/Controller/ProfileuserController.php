@@ -7,7 +7,8 @@ namespace Controller;
 class ProfileuserController extends DisplayController
 {
         public function profile () {
-            $this->middle->isUserLogin();
+            //Запускам класс постредник для проверки авторизован ли пользователь
+            $this->middle->isUserLogin($this->lang_prefix);
                 return $this->display();
         }
 

@@ -7,14 +7,19 @@ namespace Middleware;
 class Middleware
 {
         protected $auth;
-        protected $redirect  = 'login';
+        protected $redirect = 'login';
         
         public function __construct($container)
         {
             $this->auth = $container['auth'];
+            
         }
 
-        public function isUserLogin () {
+        public function isUserLogin ($prefix) {
+            if ($prefix){
+                    $this->redirect = $prefix.'/login';
+            }
+            
             if (!$this->auth->isLogin()) {
                 $this->redirect();
             }

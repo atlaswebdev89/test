@@ -7,11 +7,7 @@
         <input type="password" name="password" placeholder="{{lang.placeholderPass}}">
         <button type="submit">{{lang.enter}}</button>
         <p>
-            {% if lang_prefix %}
-                    {{lang.questionAccaunt}} - <a href="/{{lang_prefix}}/register">{{lang.register}}</a>
-            {% else %}
-                    {{lang.questionAccaunt}} - <a href="/register">{{lang.register}}</a>
-            {% endif %}
+            {{lang.questionAccaunt}} - <a href="{{uriPage.register}}">{{lang.submitRegister}}</a>          
         </p>
                 <p class="msg"> MESSAGE </p>
     </form>
