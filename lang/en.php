@@ -39,6 +39,10 @@ return
         //Страница ошибки 404
         'page_not_found' => 'Page not found',
         'linkHome' =>'Go to the main page',
+
+        //Авторизация, сообщения для JS
+        'message_no_auth' => 'Check the entered data',
+        'message_no_login' => 'This user does not exist'
         
 
 

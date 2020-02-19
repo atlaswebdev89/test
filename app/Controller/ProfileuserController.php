@@ -3,7 +3,6 @@
 
 namespace Controller;
 
-
 class ProfileuserController extends DisplayController
 {
         public function profile () {
@@ -19,7 +18,10 @@ class ProfileuserController extends DisplayController
         }
 
         protected function mainBar () {
-            $data = $this->view->render('profile.php');
+            $data = $this->view->render('profile.php',
+                [
+                    'user' => $_SESSION
+                ]);
         return $data;
     }
 }

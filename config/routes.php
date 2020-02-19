@@ -9,6 +9,7 @@
                                 ],
                      'POST' =>
                                 [
-                                    'checkMail' => 'admin/mail'
+                                    'checkMail' => 'admin/mail',
+                                    'checkUsers' => 'login/checkUsers'
                                 ]
                     ];

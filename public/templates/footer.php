@@ -2,3 +2,5 @@
 <script src="/js/bootstrap.min.js"></script>
 <script src="/js/inputFile.js"></script>
 
+<script src="/js/singAjax.js"></script>
+

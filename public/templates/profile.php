@@ -1,2 +1,2 @@
-<p>PROFILE_USER</p>
-<p>IMAGE_USERS</p>
+<p>{{user.name}}</p>
+<p>{{user.secondname}}</p>
