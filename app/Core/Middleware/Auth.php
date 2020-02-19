@@ -49,4 +49,14 @@ class Auth
             return FALSE;
         }
     }
+    
+    public function isUserAuth () {
+          if (isset($_SESSION['auth']) && !empty($_SESSION['auth']) && isset($_SESSION['user_id'])) {
+              return TRUE;
+          }else {
+               if (isset($_COOKIE['hash']) && !empty($_COOKIE['hash'])) {   
+                   
+               }
+          }
+    }
 }

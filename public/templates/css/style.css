@@ -123,3 +123,9 @@ h1 {
 .none {
     display: none;
 }
+.center {
+    text-align: center;
+}
+.center p a {
+    color: #ff4332;
+}

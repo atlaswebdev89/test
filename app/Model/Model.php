@@ -76,4 +76,5 @@ class Model {
         return $result[0];
 
     }
+    
 }

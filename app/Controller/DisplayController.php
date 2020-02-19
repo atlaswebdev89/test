@@ -11,6 +11,7 @@ class DisplayController extends MainController {
     protected $langList;
     protected $uri; 
     protected $title;
+    protected $templates;
 
 
     public function __construct($container) { 
@@ -71,6 +72,9 @@ class DisplayController extends MainController {
                         } 
                         return $uri;               
             }else {
+                if (array_key_exists('home', $uri)) {
+                    $uri['home'] = '/';
+                }
                 return $uri;
             }
         }

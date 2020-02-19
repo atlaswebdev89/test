@@ -18,6 +18,8 @@ class MainController {
             $this->container = $container;
             $this->model = $container['model'];
             $this->view=$container['view'];
+            $this->user = $container['user'];
             $this->middle = $container['middle'];
+            $this->auth = $container['auth'];
     }
 }

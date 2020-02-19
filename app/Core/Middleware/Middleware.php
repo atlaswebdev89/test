@@ -23,8 +23,8 @@ class Middleware
             if (!$this->auth->isLogin()) {
                 $this->redirect();
             }
-        }
-
+        }         
+ 
     protected function redirect () {
         header("HTTP/1.1 401 Unauthorized");
         header('Location: http://'.$_SERVER['HTTP_HOST'] .'/'. $this->redirect);

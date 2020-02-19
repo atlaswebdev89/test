@@ -42,7 +42,12 @@ return
 
         //Авторизация, сообщения для JS
         'message_no_auth' => 'Check the entered data',
-        'message_no_login' => 'This user does not exist'
+        'message_no_login' => 'This user does not exist',
+        
+        //Страница logout
+        'message_auth' => 'You are already logged in to the site',
+        'logout' => 'Logout',
+        'page_profile' => 'Your profile page'
         
 
 

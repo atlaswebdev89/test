@@ -7,10 +7,19 @@ class LoginController extends DisplayController
     //Массив содержащий все ссылки на текущей странице 
     public $uriArrayPage = [
         'register' => 'register',
-        'checkUsers' => 'checkUsers'
+        'checkUsers' => 'checkUsers',
+        'home' => '',
+        'logout' => 'logout'
     ];
 
     public function login () {
+            //Подключение нужного шаблона в зависимости авторизирован 
+            //ли пользователь на сайте или нет
+            if($this->auth->isLogin()){
+                $this->templates = 'logout.php';
+            }else {
+                $this->templates = 'login.php';
+            };                 
             //Задаем заголовок странице
             $this->title = $this->lang['title_page_login'];
             //Получаем правильные ссылки для текущей странице с учетом локализации
@@ -21,7 +30,7 @@ class LoginController extends DisplayController
     }
 
     public function mainBarLogin () {
-            $data = $this->view->render('login.php',
+            $data = $this->view->render($this->templates,
                 [                   
                     'lang' =>  $this->lang,
                     'uriPage' => $this->uriArrayPage
