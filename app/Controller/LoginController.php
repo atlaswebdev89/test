@@ -9,8 +9,29 @@ class LoginController extends DisplayController
         'register' => 'register',
         'checkUsers' => 'checkUsers',
         'home' => '',
-        'logout' => 'logout'
+        'logout' => 'logout',
+        'login' => 'login'
     ];
+
+    public function __construct($container)
+    {
+        parent::__construct($container);
+        //Получаем правильные ссылки для текущей странице с учетом локализации
+        $this->uriArrayPage = $this->geturiPageCurrent($this->uriArrayPage);
+
+    }
+
+    public function logout () {
+        if (isset($_POST['logout']) && !empty($_POST['logout']) ) {
+            $this->container['session']->deleteSession();
+                setcookie("hash", "", time() - 3600, '/');
+            echo json_encode([
+                'status' => true,
+                'url' => $this->uriArrayPage['login']
+            ]);
+
+        }
+    }
 
     public function login () {
             //Подключение нужного шаблона в зависимости авторизирован 
@@ -22,8 +43,6 @@ class LoginController extends DisplayController
             };                 
             //Задаем заголовок странице
             $this->title = $this->lang['title_page_login'];
-            //Получаем правильные ссылки для текущей странице с учетом локализации
-            $this->uriArrayPage = $this->geturiPageCurrent($this->uriArrayPage);
             //Формируем основной блок для отображения
             $this->mainbar = $this->mainBarLogin();
         parent::display();
@@ -63,7 +82,7 @@ class LoginController extends DisplayController
                 $user = $this->model->getUserData ($result['id']);
                 //Формируем данные сессии
                 $this->container['session']->CreateSessionData($user);
-                echo json_encode(['status' => TRUE, 'url' => '/']);
+                echo json_encode(['status' => TRUE, 'url' => $this->uriArrayPage['home']]);
             }else {
                 echo json_encode(['status' => FALSE, 'message' => $this->lang['message_no_auth']]);
             }
@@ -84,10 +103,4 @@ class LoginController extends DisplayController
         //Установливаем куки
         setcookie("hash", $hash, time() + TIMEOUT_USER_HASH, '/');
     }
-
-    //выход с сайта
-    public function logout () {
-
-    }
-
 }

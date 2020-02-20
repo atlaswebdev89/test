@@ -126,6 +126,20 @@ h1 {
 .center {
     text-align: center;
 }
-.center p a {
-    color: #ff4332;
+.center p {
+    margin-top: 15px;
+    font-size: 16px;
+}
+.center img {
+    max-height: 300px;
+}
+.profile {
+    text-align: center;
+    margin: 15px 0 15px 0;
+    padding: 10px;
+    border-bottom: 2px solid lightblue;
+    border-top: 2px solid lightblue;
+    color: #555555;
+    font-size: 14px;
+    font-style: italic;
 }

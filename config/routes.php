@@ -10,6 +10,7 @@
                      'POST' =>
                                 [
                                     'checkMail' => 'admin/mail',
-                                    'checkUsers' => 'login/checkUsers'
+                                    'checkUsers' => 'login/checkUsers',
+                                    'logout'    =>  'login/logout'
                                 ]
                     ];

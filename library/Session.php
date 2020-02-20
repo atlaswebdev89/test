@@ -35,7 +35,7 @@ class Session {
     }
     
     public function deleteSession (){
-        unset($_SESSION['auth']);
-        session_destroy();
+                unset($_SESSION['auth']);
+            session_destroy();
     }
 }

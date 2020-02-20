@@ -46,7 +46,12 @@ return
         //Страница logout
         'message_auth' => 'Вы уже авторизованы на сайте',
         'logout' => 'Выход',
-        'page_profile' => 'Страница профиля'
+        'page_profile' => 'Страница профиля',
+
+        //Страница профиля
+        'message_account' => 'Аккаунт',
+        'message_name' => 'Имя',
+        'message_email' => 'E-mail'
 
 
 

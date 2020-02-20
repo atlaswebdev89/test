@@ -47,7 +47,13 @@ return
         //Страница logout
         'message_auth' => 'You are already logged in to the site',
         'logout' => 'Logout',
-        'page_profile' => 'Your profile page'
+        'page_profile' => 'Your profile page',
+
+
+        //Страница профиля
+        'message_account' => 'Login',
+        'message_name' => 'Name',
+        'message_email' => 'E-mail'
         
 
 
