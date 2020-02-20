@@ -51,7 +51,13 @@ return
         //Страница профиля
         'message_account' => 'Аккаунт',
         'message_name' => 'Имя',
-        'message_email' => 'E-mail'
+        'message_email' => 'E-mail',
+        
+        //Сообщения для logout
+        'message_alert' => 'Выйти',
+        'message_alert_text' => 'Вы точно хотите покинуть сайт?',
+        'message_alert_exit' => 'Выйти!',
+        'message_alert_no_exit' => 'Остаться'
 
 
 

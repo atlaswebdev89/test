@@ -2,7 +2,7 @@
 function ajaxData (form, formdata=null) {
     $.ajax ({
         type: 'POST',
-        url:url,
+        url:uri,
         contentType: false,
         processData: false,
         data:formdata,

@@ -1,16 +1,16 @@
 jQuery(document).ready(function ($) {
-        $("#logout_button").click(function (event) {
-            event.preventDefault();
+        $("#logout_button").click(function (event) {          
+            event.preventDefault();              
             ConfirmSweet(ajaxdatasend, $(this));
         })
 })
 
 function ConfirmSweet(nameFunc, button) {
     swal({
-        title: "Выйти",
-        text: "Вы точно хотите покинуть сайт?",
+        title: lang.message_alert,
+        text: lang.message_alert_text,
         icon: "warning",
-        buttons: ["Остаться", "Выйти!"],
+        buttons: [lang.message_alert_no_exit, lang.message_alert_exit],
         dangerMode: true,
     })
         .then((willDelete) => {

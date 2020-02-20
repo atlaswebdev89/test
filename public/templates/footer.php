@@ -7,4 +7,9 @@
 <script src="/js/logout.js"></script>
 <!-- Скрипт замены стандартного alert-->
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<!--Передача JSON данных переводов в зависимости от локализации -->
+<script>    
+    //Убираем экранирование Twig с помощью raw
+    var lang = {{langOut | raw }};    
+</script>
 

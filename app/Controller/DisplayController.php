@@ -12,6 +12,7 @@ class DisplayController extends MainController {
     protected $uri; 
     protected $title;
     protected $templates;
+    protected $uriLogout;
 
 
     public function __construct($container) { 
@@ -87,7 +88,8 @@ class DisplayController extends MainController {
                                                             'title' => $this->title,    
                                                             'langData' =>$this->langList,
                                                             'uri' => $this->uri,
-                                                            'usedLang' => $_SESSION['lang']
+                                                            'usedLang' => $_SESSION['lang'],
+                                                            'langOut' => json_encode($this->lang)
                                                         ]);   
         }
         

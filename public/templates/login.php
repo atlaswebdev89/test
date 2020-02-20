@@ -12,5 +12,5 @@
                 <p class="msg none"></p>
     </form>
 <script>
-    var url = '{{uriPage.checkUsers}}';
+    var uri = '{{uriPage.checkUsers}}';    
 </script>

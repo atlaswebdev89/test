@@ -7,10 +7,10 @@
     <p><strong>{{lang.message_email}}</strong> - {{user.email}}</p>
 </div>
 <div class="col-md-12 center">
-    <a href="{{uriPage.logout}}" class="btn btn-danger" id ="logout_button">{{lang.logout}}</a>
+    <a class="btn btn-danger" id ="logout_button">{{lang.logout}}</a>
 </div>
-<script>
-    var url = '{{uriPage.logout}}';
+<script>    
+    var url = '{{uriPage.logout}}';  
 </script>
 
 

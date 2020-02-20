@@ -30,7 +30,7 @@ class ProfileuserController extends DisplayController
                 [
                     'user' => $this->user_data,
                     'lang' =>  $this->lang,
-                    'uriPage' => $this->uriArrayPage
+                    'uriPage' => $this->uriArrayPage                   
                 ]);
         return $data;
     }
