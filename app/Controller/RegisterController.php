@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Controller;
-
 
 class RegisterController extends DisplayController
 {
@@ -10,7 +8,8 @@ class RegisterController extends DisplayController
     public $uriArrayPage = [
         'login' => 'login',
         'home' => '',
-        'logout' => 'logout'
+        'logout' => 'logout',
+        'registerUsers' => 'registerUsers'
     ];
     
     public function register () {
@@ -37,5 +36,10 @@ class RegisterController extends DisplayController
                 'uriPage' => $this->uriArrayPage      
             ]);
         return $data;
-    }    
+    }
+
+    public function registerUsers () {
+        print_r($_POST);
+        print_r($_FILES);exit;
+    }
 }

@@ -3,6 +3,8 @@
 <script src="/js/inputFile.js"></script>
 <!--Скрипт ajax авторизации на сайте -->
 <script src="/js/singAjax.js"></script>
+<!--Скрипт ajax регистрации на сайте -->
+<script src="/js/register.js"></script>
 <!--Скрипт log out на сайте -->
 <script src="/js/logout.js"></script>
 <!-- Скрипт замены стандартного alert-->
