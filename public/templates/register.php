@@ -1,11 +1,11 @@
    <!-- Форма регистрации -->
    <h1 class="dark text-center">{{lang.title_page_register}}</h1>
     <form action="#" method="post" enctype="multipart/form-data">
-        <label>{{lang.labelname}}<i style="color: red;"> *</i></label>
+        <label>{{lang.labelname}}<span class = "red"> *</span></label>
         <input type="text" name="name" placeholder="{{lang.placeholderName}}" required ="required">
-        <label>{{lang.labellogin}}</label>
+        <label>{{lang.labellogin}}<span class = "red"> *</span></label>
         <input type="text" name="login" placeholder="{{lang.placeholderLogin}}" required ="required">
-        <label>{{lang.email}}</label>
+        <label>{{lang.email}}<span class = "red"> *</span></label>
         <input type="email" name="email" placeholder="{{lang.placeholderEmail}}" required ="required" >
             
         <label>{{lang.profileImage}}</label>
@@ -16,9 +16,9 @@
                     <input class="f_name" type="text" id="f_name" value="{{lang.InputFileMessage}}" disabled />
                 </label>
             </div>        
-        <label>{{lang.labelpassword}}</label>
+        <label>{{lang.labelpassword}}<span class = "red"> *</span></label>
         <input type="password" name="password" placeholder="{{lang.placeholderPass}}" required ="required">
-        <label>{{lang.labelConfirmPass}}</label>
+        <label>{{lang.labelConfirmPass}}<span class = "red"> *</span></label>
         <input type="password" name="password_confirm" placeholder="{{lang.placeholderConfirmPass}}" required ="required">
         <button id = "registerButton" type="submit">{{lang.submitRegister}}</button>
         <p>

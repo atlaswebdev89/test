@@ -7,12 +7,14 @@ jQuery(document).ready(function ($) {
         var form = $(this).parents('form');
         //переменная formValid
         var formValid = true;
+        $(".error").remove();
         //Проверка полей формы
         form.find('input').each(function () {
             if (this.checkValidity()) {
                 $(this).removeClass('error-input');
             }else {
                 $(this).addClass('error-input');
+                $(this).after('<span class = "error red">Не верно заполнено поле ввода</span>')
                 formValid = false;
             }
         });
@@ -36,7 +38,7 @@ function ajaxRegister (form, formdata=null){
         dataType: "json",
         beforeSend: function (data) {
             //Блокируем кнопку и элементы формы
-            form.find('input').attr('disabled', 'disabled');
+            form.find('input, button').attr('disabled', 'disabled');
         },
         success:  function (data) {
             if(data) {

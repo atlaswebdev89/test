@@ -18,6 +18,14 @@
           </mappings>
         </serverdata>
       </paths>
+      <paths name="bitrix">
+        <serverdata>
+          <mappings>
+            <mapping local="$PROJECT_DIR$/../cisco" web="/" />
+            <mapping local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
       <paths name="byfly">
         <serverdata>
           <mappings>
