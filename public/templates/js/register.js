@@ -7,6 +7,7 @@ jQuery(document).ready(function ($) {
         var form = $(this).parents('form');
         //переменная formValid
         var formValid = true;
+
         $(".error").remove();
         //Проверка полей формы
         form.find('input').each(function () {
@@ -14,10 +15,31 @@ jQuery(document).ready(function ($) {
                 $(this).removeClass('error-input');
             }else {
                 $(this).addClass('error-input');
-                $(this).after('<span class = "error red">Не верно заполнено поле ввода</span>')
+                $(this).after('<span class = "error red">Не заполнено поле ввода</span>')
                 formValid = false;
             }
         });
+
+        if (formValid) {
+            form.find('input').each(function () {
+                switch ($(this).attr('name')) {
+                    case 'name':
+                        if ($(this).val().length < 3) {
+                            formValid = false;
+                            $(this).addClass('error-input').after('<span class = "error red">Имя не может быть короче 3 символов</span>');
+                        }
+                        break;
+                    case 'login':
+                        var regEx = /^\w+$/;
+                        if ($(this).val().length < 3 && regEx.test($(this).val())) {
+                            alert("login");
+                            formValid = false;
+                            $(this).addClass('error-input').after('<span class = "error red">Разрешенные символы латинские буквы,цифры и знак подчеркивания</span>');
+                        }
+                        break;
+                }
+            })
+        }
 
         if (formValid) {
             var formData = new FormData(form[0]);
