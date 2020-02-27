@@ -11,7 +11,8 @@
                                 [
                                     'checkMail'     => 'admin/mail',
                                     'checkUsers'    => 'login/checkUsers',
-                                    'logout'        =>  'login/logout',
-                                    'registerUsers'  =>  'register/registerUsers'
+                                    'logout'        => 'login/logout',
+                                    'registerUsers' => 'register/registerUsers',
+                                    'checkLogin'    => 'register/checkLogin'
                                 ]
                     ];

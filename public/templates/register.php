@@ -24,6 +24,7 @@
         <p>
                 {{lang.questionAccauntRegister}} - <a href="{{uriPage.login}}">{{lang.loginSite}}</a>           
         </p>
+            <p class="msg none"></p>
     </form>
    <script>
        var uri = '{{uriPage.registerUsers}}';

@@ -9,37 +9,141 @@ jQuery(document).ready(function ($) {
         var formValid = true;
 
         $(".error").remove();
-        //Проверка полей формы
-        form.find('input').each(function () {
-            if (this.checkValidity()) {
-                $(this).removeClass('error-input');
-            }else {
-                $(this).addClass('error-input');
-                $(this).after('<span class = "error red">Не заполнено поле ввода</span>')
-                formValid = false;
-            }
-        });
+        $(".error-input").removeClass("error-input");
 
-        if (formValid) {
+            //Проверка полей формы на соответстию шаблонам разрешенных символов
             form.find('input').each(function () {
                 switch ($(this).attr('name')) {
+                    //Проверка поля ввода Имя
                     case 'name':
+                        //Проверка поля на пустоту
+                        if (checkEmpty($(this).val())) {
+                            formValid = false;
+                            $(this).addClass('error-input');
+                            break;
+                        }
+                        //Проверка на соотвествия длины
                         if ($(this).val().length < 3) {
                             formValid = false;
                             $(this).addClass('error-input').after('<span class = "error red">Имя не может быть короче 3 символов</span>');
+                            break;
+                        }
+
+                        //Проверка на отсутствие спецсимволов
+                        var regExSpec = /[~`!@#$%\^&*()+=\-\[\]\\';,/{}|\\":<>\?]+/;
+                        if (regExSpec.test($(this).val())) {
+                                formValid = false;
+                            $(this).addClass('error-input').after('<span class = "error red">Запрещенные символы</span>');
+                            break;
                         }
                         break;
+
                     case 'login':
-                        var regEx = /^\w+$/;
-                        if ($(this).val().length < 3 && regEx.test($(this).val())) {
-                            alert("login");
+
+                        //Проверка поля на пустоту
+                        if (checkEmpty($(this).val())) {
                             formValid = false;
-                            $(this).addClass('error-input').after('<span class = "error red">Разрешенные символы латинские буквы,цифры и знак подчеркивания</span>');
+                            $(this).addClass('error-input');
+                            break;
+                        }
+
+                        //Проверка логина на длину и соответсвие шаблона регулярного выражения
+                        var regEx = /^\w+$/;
+                        if ($(this).val().length < 3 || regEx.test($(this).val()) == 0) {
+                            formValid = false;
+                            $(this).addClass('error-input').after('<span class = "error red">Разрешенные символы: латинские буквы,цифры и знак подчеркивания</span>');
+                            break;
+                        }
+                        break;
+
+                    case 'email':
+
+                        //Проверка поля на пустоту
+                        if (checkEmpty($(this).val())) {
+                            formValid = false;
+                            $(this).addClass('error-input');
+                            break;
+                        }
+                        //Проверка email на соответсвие шаблона регулярного выражения
+                        var regEx = /^[a-z0-9_-]+@[a-z0-9-]+\.([a-z]{1,6}\.)?[a-z]{2,6}$/i;
+                        if (regEx.test($(this).val()) == 0) {
+                            formValid = false;
+                            $(this).addClass('error-input').after('<span class = "error red">Enter a valid email</span>');
+                        }
+                        break;
+
+                    case 'password':
+                        //Проверка поля на пустоту
+                        if (checkEmpty($(this).val())) {
+                            formValid = false;
+                            $(this).addClass('error-input');
+                            break;
+                        }
+                        //Минимальнная длина пароля 6 знаков
+                        if ($(this).val().length < 5) {
+                            formValid = false;
+                            $(this).addClass('error-input').after('<span class = "error red">Длина пароля от 6 до 12 знаков</span>');
+                            break;
+                        }
+                        break;
+
+                    case 'password_confirm':
+                        //Проверка поля на пустоту
+                        if (checkEmpty($(this).val())) {
+                            formValid = false;
+                            $(this).addClass('error-input');
+                            break;
+                        }
+                        //Минимальнная длина пароля 6 знаков
+                        if ( ($(this).val().length < 5) || ($(this).val().length > 13) ) {
+                            formValid = false;
+                            $(this).addClass('error-input').after('<span class = "error red">Длина пароля от 6 до 12 знаков</span>');
+                            break;
+                        }
+                        break;
+
+                    case 'file':
+                        if ($(this)[0].files[0]) {
+                            //Проверка на соответствие типа файлу
+                            var typeFiles = [
+                                'image/jpeg',
+                                'image/jpg',
+                                'image/png',
+                                'image/gif'
+                            ];
+                            //Определяем размер файла
+                            var file_size = ($(this)[0].files[0].size);
+                            if (file_size > 5242880) {
+                                formValid = false;
+                                $(this).parents(".upload_form").addClass('error-input').after('<span class = "error red">Размер файла не должен превышать 5MB</span>');
+                                break;
+                            }
+                            //Определяем тип файла
+                            var type_file = ($(this)[0].files[0].type);
+                            if ($.inArray(type_file, typeFiles) == -1) {
+                                formValid = false;
+                                $(this).parents('div.upload_form').addClass('error-input').after('<span class = "error red">Не верный тип файла</span>');
+                                break;
+                            }
                         }
                         break;
                 }
             })
-        }
+
+        //Проверяем совпанение паролей
+        if(formValid) {
+            var Pass = form.find('input[name=password]').val();
+            var ConfirmPass = form.find('input[name=password_confirm]').val();
+            //Проверяем совпадение пароля и подтверждение пароля
+            if (Pass != ConfirmPass) {
+                    formValid = false;
+                    form.find("p.msg").html('Пароли не совпадают Проверьте');
+                    form.find("p.msg").css("color", "#000").fadeIn("slow");
+                    setTimeout(function () {
+                        $('p.msg').fadeOut("slow");
+                    }, 3000);
+                }
+            }
 
         if (formValid) {
             var formData = new FormData(form[0]);
@@ -47,6 +151,30 @@ jQuery(document).ready(function ($) {
         }
     })
 })
+
+//Функция проверки поля на пустоту
+function checkEmpty(input) {
+    //Проверка поля на пустоту
+    if (input.length == 0) {
+        return true;
+    }
+}
+
+//Функция проверки наличия введенного логина в БД
+function checkLogin(login) {
+    $.ajax ({
+        type: 'POST',
+        url:'/checkLogin',
+        async:false,
+        data:{login: login},
+        timeout: 5000,
+        success:  function (data) {
+            if(data == true) {
+                return true;
+            }
+        }
+    })
+}
 
 function ajaxRegister (form, formdata=null){
     $.ajax ({

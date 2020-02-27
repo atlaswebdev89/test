@@ -42,4 +42,14 @@ class RegisterController extends DisplayController
         print_r($_POST);
         print_r($_FILES);exit;
     }
+
+    public function checkLogin () {
+        if ($_POST['login']) {
+                $result = $this->model->checkLogin(trim($_POST['login']));
+            if (isset($result['id']) && !empty($result['id'])) {
+                echo TRUE;
+            }else
+                echo FALSE;
+        }
+    }
 }

@@ -74,7 +74,17 @@ class Model {
         );
         $result =  $this->driver->query($sql, $type, $data_array);
         return $result[0];
+    }
 
+    //Функция проверки наличия логина в БД
+    public function checkLogin ($login) {
+            $type = 'arraydata';
+            $sql =  "select `id` from `user_auth` where `user_auth`.`login` =:login";
+            $data_array=array(
+                'login' => $login
+            );
+            $result =  $this->driver->query($sql, $type, $data_array);
+        return $result[0];
     }
     
 }
