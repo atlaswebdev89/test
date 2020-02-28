@@ -22,4 +22,9 @@ class MainController {
             $this->middle = $container['middle'];
             $this->auth = $container['auth'];
     }
+
+    public function clear_str($str) {
+            $str =  strip_tags(trim($str));
+        return ($str);
+    }
 }

@@ -39,13 +39,43 @@ class RegisterController extends DisplayController
     }
 
     public function registerUsers () {
-        print_r($_POST);
-        print_r($_FILES);exit;
-    }
 
-    public function checkLogin () {
-        if ($_POST['login']) {
-                $result = $this->model->checkLogin(trim($_POST['login']));
+        //массив для ошибок
+        $err = array ();
+
+        if (isset($_POST) && !empty($_POST)) {
+
+                $err ['login']['message'] = 'Логин занят';
+                $err ['login']['field'] = 'login';
+
+        }
+        if (isset($_POST) && !empty($_POST)) {
+
+                $err ['email']['message'] = 'Такой email уже зарегистрирован';
+                $err ['email']['field'] = 'email';
+
+        }
+
+        if ($_POST['name'] ) {
+            $err ['name']['message'] = 'Запрещенный символы';
+            $err ['name']['field'] = 'name';
+        }
+        if(count($err) !=0) {
+            echo $this->returnErrorJSON($err);
+        }
+
+
+    }
+    public function returnErrorJSON ($field) {
+        return json_encode([
+            'status' => false,
+            'error' => $field
+        ]);
+    }
+    //Функция проверки наличия логина в БД
+    public function checkLogin ($login) {
+        if ($login) {
+                $result = $this->model->checkLogin($login);
             if (isset($result['id']) && !empty($result['id'])) {
                 echo TRUE;
             }else

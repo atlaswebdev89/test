@@ -106,11 +106,11 @@ jQuery(document).ready(function ($) {
                         if ($(this)[0].files[0]) {
                             //Проверка на соответствие типа файлу
                             var typeFiles = [
-                                'image/jpeg',
-                                'image/jpg',
-                                'image/png',
-                                'image/gif'
-                            ];
+                                                'image/jpeg',
+                                                'image/jpg',
+                                                'image/png',
+                                                'image/gif'
+                                            ];
                             //Определяем размер файла
                             var file_size = ($(this)[0].files[0].size);
                             if (file_size > 5242880) {
@@ -122,7 +122,7 @@ jQuery(document).ready(function ($) {
                             var type_file = ($(this)[0].files[0].type);
                             if ($.inArray(type_file, typeFiles) == -1) {
                                 formValid = false;
-                                $(this).parents('div.upload_form').addClass('error-input').after('<span class = "error red">Не верный тип файла</span>');
+                                $(this).parents('div.upload_form').addClass('error-input').after('<span class = "error red">Разрешенный формат jpg, jpeg, png, gif</span>');
                                 break;
                             }
                         }
@@ -146,7 +146,7 @@ jQuery(document).ready(function ($) {
             }
 
         if (formValid) {
-            var formData = new FormData(form[0]);
+                var formData = new FormData(form[0]);
             ajaxRegister(form, formData);
         }
     })
@@ -158,22 +158,6 @@ function checkEmpty(input) {
     if (input.length == 0) {
         return true;
     }
-}
-
-//Функция проверки наличия введенного логина в БД
-function checkLogin(login) {
-    $.ajax ({
-        type: 'POST',
-        url:'/checkLogin',
-        async:false,
-        data:{login: login},
-        timeout: 5000,
-        success:  function (data) {
-            if(data == true) {
-                return true;
-            }
-        }
-    })
 }
 
 function ajaxRegister (form, formdata=null){
@@ -195,8 +179,14 @@ function ajaxRegister (form, formdata=null){
                 if(data.status == true){
                     window.location.href = data.url;
                 }else if (data.status == false){
-                    swal("Ошибка", "Ошибка logout", "error");
-                    button.removeAttr('disabled');
+
+                    $.each(data.error, function () {
+                        console.log($(this)[0].field);
+                    });
+
+                    for (var key in data.error){
+                        form.find('input[name='+data.error[key].field+']').addClass('error-input').after('<span class = "error red">'+data.error[key].message+'</span>');
+                    }
                 }
             }
         }

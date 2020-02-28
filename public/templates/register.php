@@ -1,6 +1,6 @@
    <!-- Форма регистрации -->
    <h1 class="dark text-center">{{lang.title_page_register}}</h1>
-    <form action="#" method="post" enctype="multipart/form-data">
+    <form>
         <label>{{lang.labelname}}<span class = "red"> *</span></label>
         <input type="text" name="name" placeholder="{{lang.placeholderName}}" required ="required">
         <label>{{lang.labellogin}}<span class = "red"> *</span></label>
@@ -15,7 +15,8 @@
                     <div class="label-input">{{lang.InputFile}}</div>
                     <input class="f_name" name = "file1" type="text" id="f_name" value="{{lang.InputFileMessage}}" disabled />
                 </label>
-            </div>        
+            </div>
+
         <label>{{lang.labelpassword}}<span class = "red"> *</span></label>
         <input type="password" name="password" placeholder="{{lang.placeholderPass}}" required ="required">
         <label>{{lang.labelConfirmPass}}<span class = "red"> *</span></label>
