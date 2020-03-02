@@ -21,6 +21,7 @@ class MainController {
             $this->user = $container['user'];
             $this->middle = $container['middle'];
             $this->auth = $container['auth'];
+            $this->validate = $container['validate'];
     }
 
     public function clear_str($str) {

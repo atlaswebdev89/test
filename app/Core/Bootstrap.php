@@ -24,6 +24,10 @@ class Bootstrap {
                 $container['session'] = function ($container){
                             return new \Library\Session($container);
                 };
+                //Класс для валидации формы
+                $container['validate'] = function ($container){
+                    return new \Library\ValidateForm($container);
+                };
                 //Класс посредник
                 $container['middle'] = function ($container) {
                             return new \Middleware\Middleware($container);

@@ -47,9 +47,16 @@ jQuery(document).ready(function ($) {
                             break;
                         }
 
-                        //Проверка логина на длину и соответсвие шаблона регулярного выражения
+                        //Проверка на соотвествия длины
+                        if ($(this).val().length < 3) {
+                            formValid = false;
+                            $(this).addClass('error-input').after('<span class = "error red">Логин не может быть короче 3 символов</span>');
+                            break;
+                        }
+
+                        //Проверка логина на соответсвие шаблона регулярного выражения
                         var regEx = /^\w+$/;
-                        if ($(this).val().length < 3 || regEx.test($(this).val()) == 0) {
+                        if (regEx.test($(this).val()) == 0) {
                             formValid = false;
                             $(this).addClass('error-input').after('<span class = "error red">Разрешенные символы: латинские буквы,цифры и знак подчеркивания</span>');
                             break;
@@ -57,7 +64,6 @@ jQuery(document).ready(function ($) {
                         break;
 
                     case 'email':
-
                         //Проверка поля на пустоту
                         if (checkEmpty($(this).val())) {
                             formValid = false;
@@ -179,14 +185,25 @@ function ajaxRegister (form, formdata=null){
                 if(data.status == true){
                     window.location.href = data.url;
                 }else if (data.status == false){
+                    //Включаем кнопку
+                    form.find('input, button').removeAttr('disabled');
+                    //Проверка ошибки передаче данных
+                    if (data.message) {
+                        form.find("p.msg").html(data.message);
+                        form.find("p.msg").css("color", "#000").fadeIn("slow");
+                        setTimeout(function () {
+                            $('p.msg').fadeOut("slow");
+                        }, 3000);
+                    } else {
+                        $.each(data.error, function () {
+                            console.log($(this)[0].field);
+                        });
 
-                    $.each(data.error, function () {
-                        console.log($(this)[0].field);
-                    });
-
-                    for (var key in data.error){
-                        form.find('input[name='+data.error[key].field+']').addClass('error-input').after('<span class = "error red">'+data.error[key].message+'</span>');
+                        for (var key in data.error){
+                            form.find('input[name='+data.error[key].field+']').addClass('error-input').after('<span class = "error red">'+data.error[key].message+'</span>');
+                        }
                     }
+
                 }
             }
         }

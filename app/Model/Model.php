@@ -84,7 +84,18 @@ class Model {
                 'login' => $login
             );
             $result =  $this->driver->query($sql, $type, $data_array);
-        return $result[0];
+        return $result;
+    }
+
+
+    public function checkMail ($mail) {
+        $type = 'arraydata';
+            $sql =  "select `id` from `users` where `users`.`email` =:mail";
+            $data_array=array(
+                'mail' => $mail
+            );
+            $result =  $this->driver->query($sql, $type, $data_array);
+        return $result;
     }
     
 }
