@@ -126,7 +126,7 @@ class RegisterController extends DisplayController
         // Сгенерируем расширение файла на основе типа картинки
         $extension = image_type_to_extension($image[2]);
         // Переместим картинку с новым именем и расширением в папку /uploads
-        if (move_uploaded_file($filePath, $this->container['document_root']. 'public/templates/uploads/'.$name.$extension)) {
+        if (move_uploaded_file($filePath, $this->container['document_root']. '/public/templates/uploads/'.$name.$extension)) {
             return '/uploads/'.$name.$extension;
         } else
             return FALSE;
