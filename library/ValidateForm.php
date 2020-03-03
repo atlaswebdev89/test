@@ -6,10 +6,17 @@ namespace Library;
 
 class ValidateForm
 {
-    //массив ошибок
+    //Массив ошибок
     public $err = array();
     public $model;
     protected $lang;
+    //Массив запрещенных расширений файлов
+    protected $deny = array(
+        'phtml', 'php', 'php3', 'php4', 'php5', 'php6', 'php7', 'phps', 'cgi', 'pl', 'asp',
+        'aspx', 'shtml', 'shtm', 'htaccess', 'htpasswd', 'ini', 'log', 'sh', 'js', 'html',
+        'htm', 'css', 'sql', 'spl', 'scgi', 'fcgi', 'txt'
+    );
+    protected $limitBytes = 1024*1024*5;
 
     public function __construct($container)
     {
@@ -19,6 +26,14 @@ class ValidateForm
     //Функция удаления тегов и пробелов в начале и конце
     public function clearStr($str) {
         return strip_tags(trim($str));
+    }
+
+    //Функция добавления запрещенного расширения файла
+    public function setDenyFormat ($item) {
+        if (!empty($item)) {
+            $this->deny [] = $item;
+        }
+
     }
 
     public function validateRegForm (array $form, array $files, array $lang = null) {
@@ -47,33 +62,37 @@ class ValidateForm
                     $this->ValidatePassword($this->clearStr($form['password_confirm']), $key = 'password_confirm');
                 }
 
-                //Проверка файла на соответствие
+                //Проверка файла
+                if (isset($files['file']) && !empty($files['file']['name']) && empty($files['file']['error'])) {
+                    $this->ValidFile($files['file'], $key = 'upload_form');
+                }
 
         //Возвращаем массив с возможными ошибками валидации
         return $this->err;
 }
-    protected function addErrorArray ($nameInput,$message ) {
+    protected function addErrorArray ($nameInput,$message) {
         $this->err [$nameInput]['message'] = $message;
         $this->err [$nameInput]['field'] = $nameInput;
     }
 
     //Функция валидации поля Имя (Name)
     protected function ValidateName ($name, $key) {
-        //Проверка на пустоту
-        if (strlen($name) == 0) {
-            $this->addErrorArray($key, 'Не заполнено поле Логина');
-            return true;
+            //Проверка на пустоту
+            if (strlen($name) == 0) {
+                    $this->addErrorArray($key, 'Не заполнено поле Логина');
+                return true;
+            }
+            //Проверка длины логина
+            if (strlen($name) < 3) {
+                    $this->addErrorArray($key, 'Длина должна быть больше 3 символов');
+                return true;
+            }
+            //Запрет специальных символов в имени пользователя
+            if (preg_match("/[\~`!@#$%\^&*()+=\-\[\]\\';,{}|\\\":<>\?]+/", $name)) {
+                    $this->addErrorArray($key, 'Запрещенные символы');
+                return true;
+            }
         }
-        //Проверка длины логина
-        if (strlen($name) < 3) {
-            $this->addErrorArray($key, 'Длина должна быть больше 3 символов');
-            return true;
-        }
-        //Запрет специальных символов в имени пользователя
-        if (preg_match("/[\~`!@#$%\^&*()+=\-\[\]\\';,{}|\\\":<>\?]+/", $name)) {
-            $this->addErrorArray($key, 'Запрещенные символы');
-        }
-    }
     //Функция валидации Логина
     public function validateLogin($login, $key)
     {
@@ -138,6 +157,44 @@ class ValidateForm
             return true;
         }
     }
+
+    //Функция валидации файла изображения передано через форму
+    protected function ValidFile($file, $key) {
+            //Путь к файлу
+            $filepath  = $file['tmp_name'];
+            //Ниличие ошибок
+            $errorCode = $file['error'];
+        if ($errorCode !== UPLOAD_ERR_OK || !is_uploaded_file($filepath)) {
+              $this->addErrorArray($key, 'Ошибка загрузки');
+            return true;
+        }
+
+        //Проверка расширения загруженного файла
+        foreach ($this->deny as $item) {
+            if (preg_match("/$item\$/i", $file['name'])) {
+                    $this->addErrorArray($key, 'Можно только изображения');
+                return true;
+            }
+        }
+
+        //Проверка MIME тип файла изображения использую расширение FileInfo
+        //Создадим ресурс FileInfo
+        $fi = finfo_open(FILEINFO_MIME_TYPE);
+        // Получим MIME-тип
+        $mime = (string) finfo_file($fi, $filepath);
+        // Проверим ключевое слово image (image/jpeg, image/png и т. д.)
+                if (strpos($mime, 'image') === false) {
+                        $this->addErrorArray($key, 'Можно только изображения2');
+                    return true;
+                }
+
+
+                //Функция проверки размера изображения
+        if (filesize($filepath) > $this->limitBytes) {
+                    $this->addErrorArray($key, 'Файл превышает допустимый размер. Разрешено до 5 МБ');
+                return true;
+            }
+        }
 
     //Функция проверки наличия логина в БД
     public function checkLogin ($login) {

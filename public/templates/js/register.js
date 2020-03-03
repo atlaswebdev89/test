@@ -200,7 +200,7 @@ function ajaxRegister (form, formdata=null){
                         });
 
                         for (var key in data.error){
-                            form.find('input[name='+data.error[key].field+']').addClass('error-input').after('<span class = "error red">'+data.error[key].message+'</span>');
+                            form.find('input[name='+data.error[key].field+'], div.'+data.error[key].field).addClass('error-input').after('<span class = "error red">'+data.error[key].message+'</span>');
                         }
                     }
 

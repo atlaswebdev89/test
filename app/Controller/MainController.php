@@ -28,4 +28,8 @@ class MainController {
             $str =  strip_tags(trim($str));
         return ($str);
     }
+    //Функция генерации Хеша для передачи в куки и сохранения в БД
+    public function generateHash ($str) {
+        return md5(microtime().$str);
+    }
 }

@@ -91,10 +91,7 @@ class LoginController extends DisplayController
         }
     }
 
-    //Функция генерации Хеша для передачи в куки и сохранения в БД
-    public function generateHash ($str) {
-        return md5(microtime().$str);
-    }
+
 
     //Функция добавления хеша в БД и выставление куки
     public function HashAdd ($id,$hash) {

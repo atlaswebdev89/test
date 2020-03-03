@@ -97,5 +97,33 @@ class Model {
             $result =  $this->driver->query($sql, $type, $data_array);
         return $result;
     }
+
+    //Добавление в таблицу user_auth данные авторизации нового пользователя
+    public function addNewUserAuth (array $user) {
+        $type = "insert";
+        $sql = "INSERT INTO `user_auth` (login, password, hash) values (:login, :password, :hash)";
+        $data_array = array(
+            'login' => $user['login'],
+            'password' => md5($user['password']),
+            'hash' => $user['hash']
+        );
+        $result = $this->driver->query($sql, $type, $data_array);
+        return $result;
+
+    }
+    //Добавление в таблицу users данных пользователя
+    public function addNewUserdata (array $user) {
+        $type = "count";
+        $sql = "INSERT INTO `users` (name,  foto, email, id_users) values (:name, :foto, :email, :id_users)";
+        $data_array = array(
+            'name' => $user['name'],
+            'foto' => $user['avatar'],
+            'email' => $user['email'],
+            'id_users' => $user['id_users'],
+        );
+        $result = $this->driver->query($sql, $type, $data_array);
+        return $result;
+
+    }
     
 }
