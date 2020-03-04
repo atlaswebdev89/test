@@ -17,7 +17,7 @@ class ProfileuserController extends DisplayController
         }
 
         protected function display()
-        {   
+        {
             $this->user_data = $this->user->getUserData($_SESSION['user_id']);
             //Получаем правильные ссылки для текущей странице с учетом локализации
             $this->uriArrayPage = $this->geturiPageCurrent($this->uriArrayPage);

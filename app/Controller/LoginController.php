@@ -79,7 +79,7 @@ class LoginController extends DisplayController
                 //Записываем в БД новый хеш
                 $this->HashAdd($result['id'], $hash);
                 //Получаем данные пользователя
-                $user = $this->model->getUserData ($result['id']);
+                $user = $this->user->getUserData ($result['id']);
                 //Формируем данные сессии
                 $this->container['session']->CreateSessionData($user);
                 echo json_encode(['status' => TRUE, 'url' => $this->uriArrayPage['home']]);

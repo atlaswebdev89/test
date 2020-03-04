@@ -60,7 +60,7 @@ jQuery(document).ready(function ($) {
             if (this.checkValidity()) {
                     $(this).removeClass('error-input');
             }else {
-                $(this).addClass('error-input');
+                    $(this).addClass('error-input');
                 formValid = false;
             }
         });

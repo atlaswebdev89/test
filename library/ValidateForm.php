@@ -16,7 +16,7 @@ class ValidateForm
         'aspx', 'shtml', 'shtm', 'htaccess', 'htpasswd', 'ini', 'log', 'sh', 'js', 'html',
         'htm', 'css', 'sql', 'spl', 'scgi', 'fcgi', 'txt'
     );
-    protected $limitBytes = 1024*1024*5;
+    protected $limitBytes = 1024*1024*5 ;
 
     public function __construct($container)
     {
@@ -79,17 +79,17 @@ class ValidateForm
     protected function ValidateName ($name, $key) {
             //Проверка на пустоту
             if (strlen($name) == 0) {
-                    $this->addErrorArray($key, 'Не заполнено поле Логина');
+                    $this->addErrorArray($key, $this->lang['valid_back_name_empty']);
                 return true;
             }
             //Проверка длины логина
             if (strlen($name) < 3) {
-                    $this->addErrorArray($key, 'Длина должна быть больше 3 символов');
+                    $this->addErrorArray($key, $this->lang['valid_back_name_length']);
                 return true;
             }
             //Запрет специальных символов в имени пользователя
             if (preg_match("/[\~`!@#$%\^&*()+=\-\[\]\\';,{}|\\\":<>\?]+/", $name)) {
-                    $this->addErrorArray($key, 'Запрещенные символы');
+                    $this->addErrorArray($key, $this->lang['valid_back_name_deny']);
                 return true;
             }
         }
@@ -98,22 +98,22 @@ class ValidateForm
     {
         //Проверка на пустоту
         if (strlen($login) == 0) {
-                $this->addErrorArray($key, 'Не заполнено поле Логина');
+                $this->addErrorArray($key, $this->lang['valid_back_login_empty']);
             return true;
         }
         //Проверка длины логина
         if (strlen($login) < 3) {
-                $this->addErrorArray($key, 'Длина логина должна быть больше 3 символов');
+                $this->addErrorArray($key, $this->lang['valid_back_login_length']);
             return true;
         }
         //Проверка разрешенных симоволов
         if (!preg_match("/^[a-zA-Z0-9_]+$/", $login)) {
-                $this->addErrorArray($key, 'Введенный логин не соответствует шаблону');
+                $this->addErrorArray($key, $this->lang['valid_back_login_pattern']);
             return true;
         }
         //Проверка наличия указанного логина в БД
         if ($this->checkLogin($login)) {
-                $this->addErrorArray($key, 'Логин занят');
+                $this->addErrorArray($key, $this->lang['valid_back_login_not_free']);
             return true;
         }
     }
@@ -122,18 +122,18 @@ class ValidateForm
     protected function ValidateEmail ($email, $key) {
         //Проверка на пустоту
         if (strlen($email) == 0) {
-                $this->addErrorArray($key, 'Не заполнено поле email');
+                $this->addErrorArray($key, $this->lang['valid_back_email_empty']);
             return true;
         }
         //Соответствие шаблону
-        if (!preg_match("/^[a-z0-9_-]+@[a-z0-9-]+\.([a-z]{1,6}\.)?[a-z]{2,6}$/i", $email)) {
-                $this->addErrorArray($key, 'Не правильный формат почтового ящика');
+        if (!preg_match("/^[a-z0-9_-]+@[a-z-]+\.([a-z]{1,6}\.)?[a-z]{2,6}$/i", $email)) {
+                $this->addErrorArray($key, $this->lang['valid_back_email_pattern']);
             return true;
         }
 
         //Проверка на наличие в БД email
         if ($this->checkMail($email)){
-                $this->addErrorArray($key, 'Почта уже есть в БД');
+                $this->addErrorArray($key, $this->lang['valid_back_email_not_free']);
             return true;
         }
     }
@@ -143,17 +143,17 @@ class ValidateForm
     public function ValidatePassword ($pass, $key) {
         //Поверка на пустоту
         if (strlen($pass) == 0) {
-                $this->addErrorArray($key, 'Обязательно для заполнения');
+                $this->addErrorArray($key, $this->lang['valid_back_pass_empty']);
             return true;
         }
         //Проверка длины пароля
         if (strlen($pass) < 6 ) {
-                $this->addErrorArray($key, 'Пароль не менее 6 символов');
+                $this->addErrorArray($key, $this->lang['valid_back_pass_length']);
             return true;
         }
         //Запрет русских букв
         if (preg_match("~[а-яА-Я]+~", $pass)) {
-                $this->addErrorArray($key, 'Нельзя русские буквы в пароле');
+                $this->addErrorArray($key, $this->lang['valid_back_pass_not_rus']);
             return true;
         }
     }
@@ -165,14 +165,14 @@ class ValidateForm
             //Ниличие ошибок
             $errorCode = $file['error'];
         if ($errorCode !== UPLOAD_ERR_OK || !is_uploaded_file($filepath)) {
-              $this->addErrorArray($key, 'Ошибка загрузки');
+              $this->addErrorArray($key, $this->lang['valid_back_file_error']);
             return true;
         }
 
         //Проверка расширения загруженного файла
         foreach ($this->deny as $item) {
             if (preg_match("/$item\$/i", $file['name'])) {
-                    $this->addErrorArray($key, 'Можно только изображения');
+                    $this->addErrorArray($key, $this->lang['valid_back_file_deny_extension']);
                 return true;
             }
         }
@@ -184,14 +184,14 @@ class ValidateForm
         $mime = (string) finfo_file($fi, $filepath);
         // Проверим ключевое слово image (image/jpeg, image/png и т. д.)
                 if (strpos($mime, 'image') === false) {
-                        $this->addErrorArray($key, 'Можно только изображения2');
+                        $this->addErrorArray($key, $this->lang['valid_back_file_deny_type']);
                     return true;
                 }
 
 
                 //Функция проверки размера изображения
         if (filesize($filepath) > $this->limitBytes) {
-                    $this->addErrorArray($key, 'Файл превышает допустимый размер. Разрешено до 5 МБ');
+                    $this->addErrorArray($key, $this->lang['valid_back_file_size']);
                 return true;
             }
         }

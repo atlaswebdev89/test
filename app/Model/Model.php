@@ -66,14 +66,14 @@ class Model {
     //Получение данных пользователя
     public  function getUserData ($id) {
         $type = 'arraydata';
-        $sql =  "select * from `user_auth` "
-                ." LEFT JOIN `users` ON `user_auth`.`id` = `users`.`id_users` "
-                ."  where `user_auth`.`id` =:id";
-        $data_array=array(
-            'id' => $id
-        );
-        $result =  $this->driver->query($sql, $type, $data_array);
-        return $result[0];
+            $sql =  "select `user_auth`.`id`, `user_auth`.`login`, `user_auth` .`hash`,`users`.`name`, `users`.`foto`, `users`.`email` from `user_auth` "
+                    ." LEFT JOIN `users` ON `user_auth`.`id` = `users`.`id_users` "
+                    ."  where `user_auth`.`id` =:id";
+            $data_array=array(
+                'id' => $id
+            );
+            $result =  $this->driver->query($sql, $type, $data_array);
+        return $result;
     }
 
     //Функция проверки наличия логина в БД
@@ -101,29 +101,28 @@ class Model {
     //Добавление в таблицу user_auth данные авторизации нового пользователя
     public function addNewUserAuth (array $user) {
         $type = "insert";
-        $sql = "INSERT INTO `user_auth` (login, password, hash) values (:login, :password, :hash)";
-        $data_array = array(
-            'login' => $user['login'],
-            'password' => md5($user['password']),
-            'hash' => $user['hash']
-        );
-        $result = $this->driver->query($sql, $type, $data_array);
+            $sql = "INSERT INTO `user_auth` (login, password, hash) values (:login, :password, :hash)";
+            $data_array = array(
+                'login' => $user['login'],
+                'password' => md5($user['password']),
+                'hash' => $user['hash']
+            );
+            $result = $this->driver->query($sql, $type, $data_array);
         return $result;
-
     }
+
     //Добавление в таблицу users данных пользователя
     public function addNewUserdata (array $user) {
-        $type = "count";
-        $sql = "INSERT INTO `users` (name,  foto, email, id_users) values (:name, :foto, :email, :id_users)";
-        $data_array = array(
-            'name' => $user['name'],
-            'foto' => $user['avatar'],
-            'email' => $user['email'],
-            'id_users' => $user['id_users'],
-        );
-        $result = $this->driver->query($sql, $type, $data_array);
+            $type = "count";
+            $sql = "INSERT INTO `users` (name,  foto, email, id_users) values (:name, :foto, :email, :id_users)";
+            $data_array = array(
+                'name' => $user['name'],
+                'foto' => $user['avatar'],
+                'email' => $user['email'],
+                'id_users' => $user['id_users'],
+            );
+            $result = $this->driver->query($sql, $type, $data_array);
         return $result;
-
     }
     
 }

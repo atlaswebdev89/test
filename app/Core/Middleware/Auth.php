@@ -13,6 +13,7 @@ class Auth
         {
             $this->model = $container['model'];
             $this->session = $container['session'];
+            $this->user= $container['user'];
         }
 
     public function isLogin() {
@@ -36,7 +37,7 @@ class Auth
         }else {           
             //Проверяем наличие куки с хеш пользователя при отсутствии сессии
             if (isset($_COOKIE['hash']) && !empty($_COOKIE['hash'])) {              
-                if ($user = $this->model->getUsers($_COOKIE['hash'])) {                                
+                if ($user = $this->model->getUsers($_COOKIE['hash'])) {
                     //Создаем новую сессию для пользователя
                         $this->session->CreateSessionData($user);                           
                     return $_SESSION['auth'];

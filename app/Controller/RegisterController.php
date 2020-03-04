@@ -17,13 +17,19 @@ class RegisterController extends DisplayController
     public $message_err = FALSE;
     //Массив данных нового пользователя
     protected $userData = array();
-    protected $notAva  = '/uploads/notAva.jpeg';
+
+    //Путь к папке с загруженными изображениями
+    protected $pathUpload;
+    //Папка для изображений
+    protected $dirImages = '/uploads/';
+    protected $notAva  = 'notAva.jpg';
 
     public function __construct($container)
     {
         parent::__construct($container);
         //Получаем правильные ссылки для текущей странице с учетом локализации
         $this->uriArrayPage = $this->geturiPageCurrent($this->uriArrayPage);
+        $this->pathUpload = $this->container['document_root']. 'public/templates'.$this->dirImages;
     }
 
     public function register()
@@ -58,7 +64,7 @@ class RegisterController extends DisplayController
         if (isset($_POST) && !empty($_POST) && isset($_FILES) && !empty($_FILES)) {
             $this->err = $this->validate->validateRegForm($_POST, $_FILES, $this->lang);
         }else{
-            $this->message_err= 'Ошибка. Попробуйте позже';
+            $this->message_err= $this->lang['error_post_data_register'];
         }
 
         //Если есть ошибки при валидации или ошибки получения данных, возращаем JSON ошибки
@@ -72,20 +78,20 @@ class RegisterController extends DisplayController
             //Загружаем файл аватарки и возвращаем путь к файлу
             if($avatarPath = $this->uploadFile($_FILES)) {
                 //Добавляем путь к массиву данных нового пользователя
-                $this->userData['avatar'] = $avatarPath;
+                $this->userData['avatar'] = $this->dirImages.$avatarPath;
             }
             //Добавлем нового пользователя в БД
             if ($result = $this->addNewUser($this->userData)) {
-                //Получаем данные пользователя если ошибок добавления в БД нет
-                $user = $this->model->getUserData ($result);
-                //Формируем данные сессии
-                $this->container['session']->CreateSessionData($user);
+                    //Получаем данные пользователя если ошибок добавления в БД нет
+                    $user = $this->user->getUserData ($result);
+                    //Формируем данные сессии
+                    $this->container['session']->CreateSessionData($user);
                 echo $this->returnRegJSON();
             }else {
                 //Удаляем файл
-                $this->deleteFile($avatarPath);
+                $this->deleteFile($this->pathUpload.$avatarPath);
                 //Возращаем ошибку
-                echo $this->returnErrorJSON(null, 'Ошибка регистрации нового пользователя');
+                echo $this->returnErrorJSON(null, $this->lang['error_register_new_user']);
             }
         }
     }
@@ -126,15 +132,15 @@ class RegisterController extends DisplayController
         // Сгенерируем расширение файла на основе типа картинки
         $extension = image_type_to_extension($image[2]);
         // Переместим картинку с новым именем и расширением в папку /uploads
-        if (move_uploaded_file($filePath, $this->container['document_root']. '/public/templates/uploads/'.$name.$extension)) {
-            return '/uploads/'.$name.$extension;
+        if (move_uploaded_file($filePath, $this->pathUpload.$name.$extension)) {
+            return $name.$extension;
         } else
             return FALSE;
     }
 
     //Функция удаления файла из папке
     protected function deleteFile ($path) {
-
+            return unlink($path);
     }
 
     //Функция добавления нового пользователя в БД

@@ -25,7 +25,7 @@ jQuery(document).ready(function ($) {
                         //Проверка на соотвествия длины
                         if ($(this).val().length < 3) {
                             formValid = false;
-                            $(this).addClass('error-input').after('<span class = "error red">Имя не может быть короче 3 символов</span>');
+                            $(this).addClass('error-input').after('<span class = "error red">'+lang.valid_name_length+'</span>');
                             break;
                         }
 
@@ -33,7 +33,7 @@ jQuery(document).ready(function ($) {
                         var regExSpec = /[~`!@#$%\^&*()+=\-\[\]\\';,/{}|\\":<>\?]+/;
                         if (regExSpec.test($(this).val())) {
                                 formValid = false;
-                            $(this).addClass('error-input').after('<span class = "error red">Запрещенные символы</span>');
+                            $(this).addClass('error-input').after('<span class = "error red">'+lang.valid_name_pattern+'</span>');
                             break;
                         }
                         break;
@@ -50,7 +50,7 @@ jQuery(document).ready(function ($) {
                         //Проверка на соотвествия длины
                         if ($(this).val().length < 3) {
                             formValid = false;
-                            $(this).addClass('error-input').after('<span class = "error red">Логин не может быть короче 3 символов</span>');
+                            $(this).addClass('error-input').after('<span class = "error red">'+lang.valid_login_length+'</span>');
                             break;
                         }
 
@@ -58,7 +58,7 @@ jQuery(document).ready(function ($) {
                         var regEx = /^\w+$/;
                         if (regEx.test($(this).val()) == 0) {
                             formValid = false;
-                            $(this).addClass('error-input').after('<span class = "error red">Разрешенные символы: латинские буквы,цифры и знак подчеркивания</span>');
+                            $(this).addClass('error-input').after('<span class = "error red">'+lang.valid_login_pattern+'</span>');
                             break;
                         }
                         break;
@@ -74,7 +74,7 @@ jQuery(document).ready(function ($) {
                         var regEx = /^[a-z0-9_-]+@[a-z0-9-]+\.([a-z]{1,6}\.)?[a-z]{2,6}$/i;
                         if (regEx.test($(this).val()) == 0) {
                             formValid = false;
-                            $(this).addClass('error-input').after('<span class = "error red">Enter a valid email</span>');
+                            $(this).addClass('error-input').after('<span class = "error red">'+lang.valid_email_pattern+'</span>');
                         }
                         break;
 
@@ -88,7 +88,7 @@ jQuery(document).ready(function ($) {
                         //Минимальнная длина пароля 6 знаков
                         if ($(this).val().length < 5) {
                             formValid = false;
-                            $(this).addClass('error-input').after('<span class = "error red">Длина пароля от 6 до 12 знаков</span>');
+                            $(this).addClass('error-input').after('<span class = "error red">'+lang.valid_pass_length+'</span>');
                             break;
                         }
                         break;
@@ -103,7 +103,7 @@ jQuery(document).ready(function ($) {
                         //Минимальнная длина пароля 6 знаков
                         if ( ($(this).val().length < 5) || ($(this).val().length > 13) ) {
                             formValid = false;
-                            $(this).addClass('error-input').after('<span class = "error red">Длина пароля от 6 до 12 знаков</span>');
+                            $(this).addClass('error-input').after('<span class = "error red">'+lang.valid_pass_length+'</span>');
                             break;
                         }
                         break;
@@ -121,14 +121,14 @@ jQuery(document).ready(function ($) {
                             var file_size = ($(this)[0].files[0].size);
                             if (file_size > 5242880) {
                                 formValid = false;
-                                $(this).parents(".upload_form").addClass('error-input').after('<span class = "error red">Размер файла не должен превышать 5MB</span>');
+                                $(this).parents(".upload_form").addClass('error-input').after('<span class = "error red">'+lang.valid_img_size+'</span>');
                                 break;
                             }
                             //Определяем тип файла
                             var type_file = ($(this)[0].files[0].type);
                             if ($.inArray(type_file, typeFiles) == -1) {
                                 formValid = false;
-                                $(this).parents('div.upload_form').addClass('error-input').after('<span class = "error red">Разрешенный формат jpg, jpeg, png, gif</span>');
+                                $(this).parents('div.upload_form').addClass('error-input').after('<span class = "error red">'+lang.valid_img_type+'</span>');
                                 break;
                             }
                         }
@@ -143,7 +143,7 @@ jQuery(document).ready(function ($) {
             //Проверяем совпадение пароля и подтверждение пароля
             if (Pass != ConfirmPass) {
                     formValid = false;
-                    form.find("p.msg").html('Пароли не совпадают Проверьте');
+                    form.find("p.msg").html(lang.valid_compar_pass);
                     form.find("p.msg").css("color", "#000").fadeIn("slow");
                     setTimeout(function () {
                         $('p.msg').fadeOut("slow");
@@ -195,15 +195,10 @@ function ajaxRegister (form, formdata=null){
                             $('p.msg').fadeOut("slow");
                         }, 3000);
                     } else {
-                        $.each(data.error, function () {
-                            console.log($(this)[0].field);
-                        });
-
                         for (var key in data.error){
                             form.find('input[name='+data.error[key].field+'], div.'+data.error[key].field).addClass('error-input').after('<span class = "error red">'+data.error[key].message+'</span>');
                         }
                     }
-
                 }
             }
         }

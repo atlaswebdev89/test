@@ -75,7 +75,7 @@ class Router2
         }catch (\CustomException\NotFoundException $e) {
             $controller = new \Controller\ErrorController ($this->container);
             $controller->NotFound();
-        } catch (\PDOException $e) {
+        }catch (\PDOException $e) {
             echo $e->getMessage();
         } catch (\Exception $e) {
             echo $e->getMessage();
