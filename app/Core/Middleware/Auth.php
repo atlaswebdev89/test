@@ -15,7 +15,7 @@ class Auth
             $this->session = $container['session'];
             $this->user= $container['user'];
         }
-
+    //Метод проверки авторизации пользователя при повторном входе на сайт
     public function isLogin() {
         //Проверяем авторизован ли пользователь
         if (isset($_SESSION['auth']) && !empty($_SESSION['auth']) && isset($_SESSION['user_id'])) {
@@ -26,7 +26,7 @@ class Auth
                 setcookie("hash", $_COOKIE['hash'], time() + TIMEOUT_USER_HASH, '/');
             }else {
                 //Получаем значение хеша пользователя из БД              
-                if ($hash = $this->model->getHashUser($_SESSION['user_id'])){                   
+                if ($hash = $this->user->getHashUser($_SESSION['user_id'])){
                     setcookie("hash", $hash['hash'], time() + TIMEOUT_USER_HASH, '/');
                 }else {
                     //Возращаем FALSE есть хеша в БД нет. Для повторной аутентификации и формирования хеша
@@ -37,7 +37,7 @@ class Auth
         }else {           
             //Проверяем наличие куки с хеш пользователя при отсутствии сессии
             if (isset($_COOKIE['hash']) && !empty($_COOKIE['hash'])) {              
-                if ($user = $this->model->getUsers($_COOKIE['hash'])) {
+                if ($user = $this->user->getUsers($_COOKIE['hash'])) {
                     //Создаем новую сессию для пользователя
                         $this->session->CreateSessionData($user);                           
                     return $_SESSION['auth'];
@@ -49,15 +49,5 @@ class Auth
             }
             return FALSE;
         }
-    }
-    
-    public function isUserAuth () {
-          if (isset($_SESSION['auth']) && !empty($_SESSION['auth']) && isset($_SESSION['user_id'])) {
-              return TRUE;
-          }else {
-               if (isset($_COOKIE['hash']) && !empty($_COOKIE['hash'])) {   
-                   
-               }
-          }
     }
 }

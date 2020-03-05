@@ -18,7 +18,6 @@ class LoginController extends DisplayController
         parent::__construct($container);
         //Получаем правильные ссылки для текущей странице с учетом локализации
         $this->uriArrayPage = $this->geturiPageCurrent($this->uriArrayPage);
-
     }
 
     public function logout () {
@@ -29,7 +28,6 @@ class LoginController extends DisplayController
                 'status' => true,
                 'url' => $this->uriArrayPage['login']
             ]);
-
         }
     }
 
@@ -77,7 +75,7 @@ class LoginController extends DisplayController
                 //Генерируем случайное число
                 $hash = $this->generateHash($result['id']);
                 //Записываем в БД новый хеш
-                $this->HashAdd($result['id'], $hash);
+                $this->user->HashAdd($result['id'], $hash);
                 //Получаем данные пользователя
                 $user = $this->user->getUserData ($result['id']);
                 //Формируем данные сессии
@@ -89,15 +87,5 @@ class LoginController extends DisplayController
         }else {
             echo json_encode(['status' => FALSE, 'message' =>  $this->lang['message_no_login'] ]);
         }
-    }
-
-
-
-    //Функция добавления хеша в БД и выставление куки
-    public function HashAdd ($id,$hash) {
-        //Записываем в БД новый хеш
-        $this->model->updateHashUser ($id,$hash);
-        //Установливаем куки
-        setcookie("hash", $hash, time() + TIMEOUT_USER_HASH, '/');
     }
 }

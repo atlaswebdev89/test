@@ -24,14 +24,14 @@ class Model {
     //Функция получения данных пользователя по хеш, хранимой в куки
     public function getUsers ($hash) {
             $type = 'arraydata';
-            $sql = "select * from `user_auth` "
+            $sql = "select `user_auth`.`id`, `user_auth`.`login`, `user_auth` .`hash`,`users`.`name`, `users`.`foto`, `users`.`email` from `user_auth` "
                        ." LEFT JOIN `users` ON `user_auth`.`id` = `users`.`id_users` " 
                        ." where `user_auth`.`hash` =:hash"; 
             $data_array=array(
                         'hash' => $hash
                     );
             $result =  $this->driver->query($sql, $type, $data_array); 
-        return $result[0];   
+        return $result;
     }
 
     //Функция получения используемых языков сайта
@@ -45,7 +45,7 @@ class Model {
     //Проверка наличия логина в бд
     public function getUsersLoginPass ($login) {
         $type = 'arraydata';
-        $sql = "select id, password from `user_auth` where `login` =:login";
+        $sql = "select id, password from `user_auth` where BINARY`login` =:login";
         $data_array=array(
             'login' => $login
         );
@@ -79,18 +79,17 @@ class Model {
     //Функция проверки наличия логина в БД
     public function checkLogin ($login) {
             $type = 'arraydata';
-            $sql =  "select `id` from `user_auth` where `user_auth`.`login` =:login";
+            $sql =  "select `id` from `user_auth` where BINARY `user_auth`.`login` =:login";
             $data_array=array(
                 'login' => $login
             );
             $result =  $this->driver->query($sql, $type, $data_array);
         return $result;
     }
-
-
+    //Функция проверки наличия email в БД
     public function checkMail ($mail) {
         $type = 'arraydata';
-            $sql =  "select `id` from `users` where `users`.`email` =:mail";
+            $sql =  "select `id` from `users` where BINARY `users`.`email` =:mail";
             $data_array=array(
                 'mail' => $mail
             );
