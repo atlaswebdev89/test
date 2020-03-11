@@ -17,14 +17,6 @@ class Session {
     public function __construct($container) {
         $this->container = $container;
     }
-
-    public function langSession ($uriLang) {
-        if (isset($_SESSION['lang']) && !empty($_SESSION['lang']) && ($_SESSION['lang'] == $uriLang)) {
-            return TRUE;
-        }else {
-            return $this->container['language']->langValid($uriLang);
-        }
-    }
     
     public function CreateSessionData (array $data) {
                 $_SESSION['hash']               =   $data['hash'];

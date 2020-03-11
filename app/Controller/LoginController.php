@@ -63,7 +63,7 @@ class LoginController extends DisplayController
             $password   =     trim($_POST['password']);
 
             if (empty($login) || empty($password)){
-                echo json_encode(array('url' => FALSE, 'status'=> FALSE, 'message' => 'Не все обязательные поля заполнены'));
+                echo json_encode(array('url' => FALSE, 'status'=> FALSE, 'message' => $this->lang['message_error_empty_fields']));
             }
         }
 

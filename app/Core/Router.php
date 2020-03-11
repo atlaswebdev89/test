@@ -2,8 +2,8 @@
 
 namespace Core;
 
-class Router {
-    
+class Router
+{
     protected $container;
     protected $root;
     protected $language;
@@ -11,6 +11,9 @@ class Router {
     protected $namespace;
     protected $data;
     protected $lang_alias;
+    protected $exc = FALSE;
+    // контроллер по умолчанию
+    protected $controllerDefaul = 'index';
 
     public function __construct($container) {
         $this->container = $container;
@@ -21,78 +24,68 @@ class Router {
         $this->namespace = '\\Controller\\';
     }
 
-    public function start () {      
-        // контроллер по умолчанию
-		$controller_name = 'index';		
-		//Получить метод запроса
+    public function start () {
+        //Получить метод запроса
         $method = $_SERVER['REQUEST_METHOD'];
         //Получить uri запроса в виде массива
-		$routes = $this->getUri($_SERVER['REQUEST_URI']);
- 
-                //Если  текущий язык есть в системе удаляем его из массива запроса для
-                //получения правильного контроллера и действия
-                if($this->language->langValid($routes[0])){
-                    $this->lang_alias = array_shift($routes);
-                };
+        $routes = $this->getUri($_SERVER['REQUEST_URI']);
+        //Если  текущий язык есть в системе удаляем его из массива запроса для
+        //получения правильного контроллера и действия
+        $routesArray = explode('/', $routes);
+        
+        if($this->language->langValid($routesArray[0]))
+                {
+                    if ($routesArray[0] != DEFAULT_LANG) {
+                        $this->lang_alias = array_shift($routesArray);
+                        $routes = implode('/', $routesArray);
+                    }                  
+                }
+        //Проверка  наличие дублей (301 редирект)
+        $this->doubleUri($routes);
+        //проверка uri на пустоту
+        $routes = $this->uriEmpty($routes);
+
         try {
+            foreach ($this->routes[$method] as $uriPattern => $path) {
+                if (preg_match("~^$uriPattern$~", $routes)) {
 
-
-                            if (count($routes) <= 1) {
-                               if (!empty($routes[0]) && $routes[0] == $controller_name){
-                                    if (!empty($this->lang_alias))
-                                            {
-                                                    $routes[0] = $this->lang_alias;
-                                                    return $this->redirect(implode('/', $routes));
-                                    }else   {
-                                        array_shift($routes);
-                                        $this->redirect(implode('/', $routes));
-                                    }
-                                }
-                                //Если массив пуст значит запрос на главную страницу.
-                                if (empty($routes[0]))
-                                               {
-                                                   $routes[0] = $controller_name;
-                                               }
-                            }else {
-                                throw new \CustomException\NotFoundException();
-                            }
-                                    //Получение контроллера по полученному uri
-                                    if (array_key_exists($routes[0], $this->routes[$method])) {
-                                        $segments = explode('/', $this->routes[$method][$routes[0]]);
-                                        $controllerName = array_shift($segments) . 'Controller';
-                                        $controllerName = $this->namespace . ucfirst($controllerName);
-                                        $actionName = (array_shift($segments));
-                                        if (class_exists($controllerName)) {
-                                            //Создает объект контроллера
-                                            $data = new $controllerName($this->container);
-                                            if (method_exists($controllerName, $actionName)) {
-                                                //Метод объекта
-                                                $data->$actionName();
-                                            } else
-                                                throw new \Exception('NotAction');
-                                        } else
-                                            throw new \Exception('NotController');
-                                    } else {
-                                        throw new \CustomException\NotFoundException();
-                                    }
-
-
-                }catch (\CustomException\NotFoundException $e) {
-                    $controller = new \Controller\ErrorController ($this->container);
-                    $controller->NotFound();
+                    //Получения контроллера и действия (название функции)
+                    $controller_action = $this->getController($path);
+                                $controllerName = $controller_action['Controller'];
+                                $actionName = $controller_action['Action'];
+                    //Присваем переменной значение TRUE, что говорит о том что маршрут найден и исключение 404 не надо
+                    $this->exc = TRUE;
+                    //Передача управления контроллеру
+                    if (class_exists($controllerName)) {
+                        //Создает объект контроллера
+                        $data = new $controllerName($this->container);
+                        if (method_exists($controllerName, $actionName)) {
+                            //Метод объекта
+                            $data->$actionName();
+                            break;
+                        } else throw new \Exception('NotAction');
+                    } else throw new \Exception('NotController');
                 }
-                catch (\PDOException $e) {
-                    echo $e->getMessage();
-                }
-                catch (\Exception $e) {
-                    echo $e->getMessage();
-                }
+            };
+            //Если маршрут не найден бросаем исключение 404 not found
+            if (!$this->exc) {
+                throw new \CustomException\NotFoundException();
+            }
+
+        }catch (\CustomException\NotFoundException $e) {
+            $controller = new \Controller\ErrorController ($this->container);
+            $controller->NotFound();
+        }catch (\PDOException $e) {
+            echo $e->getMessage();
+        } catch (\Exception $e) {
+            echo $e->getMessage();
+        }
     }
 
     protected function getUri($request){
             $url_path = parse_url($request, PHP_URL_PATH);
-            $routes = explode('/', trim($url_path, '/'));               
-        return $routes;
+            $routes = trim($url_path, '/');
+         return $routes;
     }
 
     protected function getRoutes () {
@@ -101,16 +94,38 @@ class Router {
     }
 
     protected function redirect ($uri = null) {
-            header("HTTP/1.1 301 Moved Permanently");
-            header('Location: http://'.$_SERVER['HTTP_HOST'].'/'.$uri);
+        header("HTTP/1.1 301 Moved Permanently");
+        header('Location: http://'.$_SERVER['HTTP_HOST'].'/'.$uri);
     }
 
-    protected function getController ($routes) {
-
+    protected function getController ($path) {
+            $segments = explode('/', $path);
+            $controllerName = array_shift($segments) . 'Controller';
+            $controllerName = $this->namespace . ucfirst($controllerName);
+            $actionName = (array_shift($segments));
+        return
+                    [
+                        'Controller' => $controllerName,
+                        'Action'    => $actionName
+                    ];
     }
 
-    protected function validUri () {
+    protected function doubleUri ($routes) {       
+        //Если в запросе указан контроллер по умолчанию делаем редирект на главную для борьбы с дублями страниц
+        if (preg_match("~$this->controllerDefaul$~", $routes)) {            
+            if (!empty($this->lang_alias)){
+                return $this->redirect($this->lang_alias);
+            }else {  
+                return $this->redirect();
+            }
+        }
+    }
 
+    protected function uriEmpty ($routes) {
+            //Если маршрут пустой Значит запрос на главную страницу
+            if ($routes == '') {
+                $routes = $this->controllerDefaul;
+            }
+        return $routes;
     }
 }
-

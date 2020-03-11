@@ -15,6 +15,7 @@ return
         'enter' => 'Sing in',
         'questionAccaunt' => 'You don\'t have an account?',
         'register' => 'Create new account',
+        'message_error_empty_fields' => 'Not all required fields are filled in',
 
         //Форма регистрации
         'title_page_register' => 'Create new Account',
@@ -54,6 +55,7 @@ return
         'message_account' => 'Login',
         'message_name' => 'Name',
         'message_email' => 'E-mail',
+        'message_title_profile' => 'UserProfile',
         
         //Сообщения для logout
         'message_alert' => 'Exit',

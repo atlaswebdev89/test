@@ -15,6 +15,7 @@ return
         'enter' => 'Войти',
         'questionAccaunt' => 'У вас нет аккаунта?',
         'register' => 'Зарегистрируйтесь',
+        'message_error_empty_fields' => 'Не все обязательные поля заполнены',
 
         //Форма регистрации
         'title_page_register' => 'Регистрация',
@@ -52,7 +53,7 @@ return
         'message_account' => 'Аккаунт',
         'message_name' => 'Имя',
         'message_email' => 'E-mail',
-        
+        'message_title_profile' => 'Профиль пользователя',
         //Сообщения для logout
         'message_alert' => 'Выйти',
         'message_alert_text' => 'Вы точно хотите покинуть сайт?',

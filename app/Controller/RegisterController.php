@@ -29,7 +29,7 @@ class RegisterController extends DisplayController
         parent::__construct($container);
         //Получаем правильные ссылки для текущей странице с учетом локализации
         $this->uriArrayPage = $this->geturiPageCurrent($this->uriArrayPage);
-        $this->pathUpload = $this->container['document_root']. 'public/templates'.$this->dirImages;
+        $this->pathUpload = $this->container['document_root']. '/public/templates'.$this->dirImages;
     }
 
     public function register()
@@ -73,7 +73,7 @@ class RegisterController extends DisplayController
         }else {
             //Формируем массив данных пользователя
             foreach ($_POST as $key=>$item) {
-                $this->userData[$key] = strip_tags(trim($item));
+                $this->userData[$key] = $this->clear_str($item);
             }
             //Загружаем файл аватарки и возвращаем путь к файлу
             if($avatarPath = $this->uploadFile($_FILES)) {

@@ -56,7 +56,7 @@ class DisplayController extends MainController {
         $data = trim($_SERVER['REQUEST_URI'], '/');       
         $data = explode('/', $data);
             if (in_array($data[0], LANG)) {
-                array_shift($data);
+                    array_shift($data);
                 return implode('/', $data);
             }else {
                 return implode('/', $data);
@@ -85,16 +85,11 @@ class DisplayController extends MainController {
             echo $this->view->render('index.php', [   
                                                             'mainbar' => $this->mainbar,
                                                             'langTempl' => $this->lang,
+                                                            'langOut' => json_encode($this->lang),
                                                             'title' => $this->title,    
                                                             'langData' =>$this->langList,
                                                             'uri' => $this->uri,
-                                                            'usedLang' => $_SESSION['lang'],
-                                                            'langOut' => json_encode($this->lang)
+                                                            'usedLang' => $_SESSION['lang'],                                                          
                                                         ]);   
-        }
-        
-
-    protected function JsonResponse () {
-            
         }
 }

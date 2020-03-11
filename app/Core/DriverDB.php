@@ -15,8 +15,7 @@ namespace Core;
  */
 class DriverDB {
     protected static $db;
-    protected  $count_sql = 0; 
-    
+
     public function __construct($pdo) {
         if (isset ($pdo)){
             self::$db = $pdo;
@@ -24,27 +23,23 @@ class DriverDB {
             throw new \PDOException ("Нет подключения к БД");
     }
     
-    public function getCountBD (){
-        return $this->count_sql;
-    }
-
-
-    public function query ($sql, $type, array $data = NULL){
-        $this->count_sql++; 
+    public function query ($sql, $type, array $data = NULL){     
         switch ($type){
             case 'arraydata':                
                     $row =  self::$db->prepare($sql);
                     $row->execute($data);
                 return $row->fetchAll();
+                break;
             case 'count':                
                     $row =  self::$db->prepare($sql);
                     $row->execute($data);
                 return $row->rowCount();
+                break;
             case 'insert':
                     $row = self::$db->prepare($sql);
                     $row->execute($data);
                 return self::$db->lastInsertId();
-            break;
+                break;
         }
     }
 }
