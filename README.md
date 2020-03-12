@@ -19,7 +19,7 @@ PHP, MVC, ООП, Mysql, Js, Jquery, Twig, Pimple, GIT, Composer, PhpStorm
 
 2. Выставить права доступа на папку /uploads. Находиться папка в /public/templates
 Для Linux: 
-                sudo chmod -R 777 uploads/
+                `sudo chmod -R 777 uploads/`
 
 3. Создать базу данных mysql 
 4. Создать пользователя и назначить права к созданной базе
