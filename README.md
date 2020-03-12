@@ -19,11 +19,12 @@ PHP, MVC, ООП, Mysql, Js, Jquery, Twig, Pimple, GIT, Composer, PhpStorm
 ```php
 //php code 
 $foo = new BarClass();
+sudo chmod -R 777 uploads/
 ```
 2. Выставить права доступа на папку /uploads. Находиться папка в /public/templates
 Для Linux: 
                 ```
-                sudo chmod -R 777 uploads/
+               
                 ```
 
 3. Создать базу данных mysql 
