@@ -1,15 +1,15 @@
 # Регистрация и авторизация пользователей
 <hr>
 
-Описание:
+## Описание:
 Форма входа/регистрации нового пользователя, написанная с помощью PHP, MySQL, Javascript.
 <hr>
 
-Используемые инструменты и технологии:
-PHP, MVC, ООП, Mysql, Js, Jquery, Twig, Pimple, GIT, Composer 
+## Используемые инструменты и технологии:
+PHP, MVC, ООП, Mysql, Js, Jquery, Twig, Pimple, GIT, Composer, PhpStorm 
 <hr>
 
-Установка: 
+## Установка: 
 Для установки нужен веб сервер Apache (mod_php, mod_rewrite) и mysql server
 
 1. Создать виртуальный хост на apache
