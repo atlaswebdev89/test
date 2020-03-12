@@ -29,6 +29,7 @@ class RegisterController extends DisplayController
         parent::__construct($container);
         //Получаем правильные ссылки для текущей странице с учетом локализации
         $this->uriArrayPage = $this->geturiPageCurrent($this->uriArrayPage);
+        //Путь к папке с загруженными аватарками
         $this->pathUpload = $this->container['document_root']. '/public/templates'.$this->dirImages;
     }
 

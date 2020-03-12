@@ -14,7 +14,7 @@ class Bootstrap {
                             'password' =>   PASSWORD    
                 ];
                 //Корень приложения
-                $container['document_root'] = $_SERVER['DOCUMENT_ROOT'];              
+                $container['document_root'] = rtrim($_SERVER['DOCUMENT_ROOT'], '/');
 
                 //Класс проверки url языка
                 $container['language'] = function ($container){
