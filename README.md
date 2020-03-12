@@ -16,7 +16,10 @@ PHP, MVC, ООП, Mysql, Js, Jquery, Twig, Pimple, GIT, Composer, PhpStorm
 1. Скачать репозитарий с git или клонировать удаленный репозитарий
 
                 git clone https://github.com/doroshuk89/test.git
-
+```php
+//php code 
+$foo = new BarClass();
+```
 2. Выставить права доступа на папку /uploads. Находиться папка в /public/templates
 Для Linux: 
                 `sudo chmod -R 777 uploads/`
