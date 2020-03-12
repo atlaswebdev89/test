@@ -2,7 +2,7 @@
 
 //Данные для подключения к БД
 define('HOST', '127.0.0.1');
-define('DBNAME', 'auth');
+define('DBNAME', 'test');
 define('USER', 'test');
 define('PASSWORD', 'coredallas89');
 
