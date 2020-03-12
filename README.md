@@ -3,6 +3,9 @@
 Описание:
 Форма входа/регистрации нового пользователя, написанная с помощью PHP, MySQL, Javascript. 
 
+Используемые инструменты и технологии:
+PHP, MVC, ООП, Mysql, Js, Jquery, Twig, Pimple, GIT, Composer 
+
 Установка: 
 Для установки нужен веб сервер Apache (mod_php, mod_rewrite) и mysql server
 
