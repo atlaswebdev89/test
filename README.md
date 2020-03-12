@@ -15,7 +15,7 @@ PHP, MVC, ООП, Mysql, Js, Jquery, Twig, Pimple, GIT, Composer, PhpStorm
 1. Создать виртуальный хост на apache
 1. Скачать репозитарий с git или клонировать удаленный репозитарий
 
-                git clone https://github.com/doroshuk89/test.git
+```git clone https://github.com/doroshuk89/test.git```
 
 2. Выставить права доступа на папку /uploads. Находиться папка в /public/templates
 Для Linux: 
