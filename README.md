@@ -16,16 +16,13 @@ PHP, MVC, ООП, Mysql, Js, Jquery, Twig, Pimple, GIT, Composer, PhpStorm
 1. Скачать репозитарий с git или клонировать удаленный репозитарий
 
                 git clone https://github.com/doroshuk89/test.git
-```php
-//php code 
-$foo = new BarClass();
-sudo chmod -R 777 uploads/
-```
+
 2. Выставить права доступа на папку /uploads. Находиться папка в /public/templates
 Для Linux: 
-                ```
-               
-                ```
+```
+//Linux Bash
+sudo chmod -R 777 uploads/
+```
 
 3. Создать базу данных mysql 
 4. Создать пользователя и назначить права к созданной базе
