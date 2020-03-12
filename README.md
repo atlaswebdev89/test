@@ -8,7 +8,8 @@
 1. Создать виртуальный хост на apache
 1. Скачать репозитарий с git или клонировать удаленный репозитарий
 git clone https://github.com/doroshuk89/test.git
-2. Выставить права доступа на папку /uploads. Находить папка в /public/templates 
+2. Выставить права доступа на папку /uploads. Находиться папка в /public/templates
+
 chmod -R 777 uploads/
 
 3. Создать базу данных mysql 
