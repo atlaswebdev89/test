@@ -13,7 +13,7 @@ RUN a2enmod rewrite
 
 COPY ./ /var/www/$DIR/
 COPY config/virtualhost.conf /etc/apache2/sites-available/
-
+RUN chmod -R 777 /var/www/$DIR/public/templates/uploads/
 RUN a2ensite virtualhost.conf
 EXPOSE 80
 
