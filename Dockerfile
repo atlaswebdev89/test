@@ -7,7 +7,7 @@ RUN a2enmod php7.3
 RUN a2enmod rewrite
 
 COPY ./ /var/www/test/
-COPY ./test.conf /etc/apache2/sites-available/
+COPY apache/test.conf /etc/apache2/sites-available/
 
 RUN a2ensite test.conf
 EXPOSE 80
