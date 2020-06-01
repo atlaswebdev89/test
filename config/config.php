@@ -1,10 +1,10 @@
 <?php
 
 //Данные для подключения к БД
-define('HOST', '127.0.0.1');
-define('DBNAME', 'test');
-define('USER', 'test');
-define('PASSWORD', 'coredallas89');
+define('HOST', getenv('HOST'));
+define('DBNAME', getenv('DBNAME'));
+define('USER', getenv('USER'));
+define('PASSWORD', getenv('PASSWORD'));
 
 //Время действия куки для авторизации при отсутствии сессии
 define('TIMEOUT_USER_HASH', 50000);
