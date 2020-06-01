@@ -9,7 +9,7 @@ RUN a2enmod rewrite
 COPY ./ /var/www/test/
 COPY config/virtualhost.conf /etc/apache2/sites-available/
 
-RUN a2ensite test.conf
+RUN a2ensite virtualhost.conf
 EXPOSE 80
 
 ENTRYPOINT ["/usr/sbin/apache2ctl", "-D", "FOREGROUND"]
